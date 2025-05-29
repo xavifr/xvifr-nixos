@@ -12,6 +12,9 @@
   imports = [
   ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  
   nixpkgs = {
     # You can add overlays here
     overlays = [
