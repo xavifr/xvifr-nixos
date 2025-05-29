@@ -11,6 +11,12 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  # Use GRUB for single-partition setup
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/disk/by-uuid/e23810c2-2b6b-469f-addd-bfd28e6abaf4";
+  };
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/e23810c2-2b6b-469f-addd-bfd28e6abaf4";
       fsType = "ext4";
