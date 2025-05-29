@@ -10,9 +10,9 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    ../../modules/plasma-desktop
     ./hardware-configuration.nix
     ../common.nix
+    ../../modules/plasma-desktop
   ];
 
   # Bootloader.
