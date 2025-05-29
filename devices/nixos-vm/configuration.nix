@@ -12,7 +12,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common.nix
-    ../../modules/plasma-desktop
+    outputs.nixosModules.plasma-desktop
   ];
 
   # Bootloader.

@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./plasma-desktop.nix
-  ];
-}
