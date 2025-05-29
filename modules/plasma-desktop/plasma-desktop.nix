@@ -37,8 +37,5 @@
 
   services.flatpak.enable = true;
 
-  # Install chromium.
-  programs.chromium.enable = true;
-
 
 }
