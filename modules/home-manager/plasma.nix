@@ -111,18 +111,27 @@ in {
       if [ -n "$DISPLAY" ]; then
         echo "Applying Plasma changes..."
         
+        # Ensure config directory exists
+        mkdir -p $HOME/.config
+        
         # Apply theme changes
-        ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/plasmarc --group Theme --key name "${cfg.theme.name}"
-        ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/kdeglobals --group General --key ColorScheme "${cfg.theme.colorScheme}"
+        if [ -f $HOME/.config/plasmarc ]; then
+          ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/plasmarc --group Theme --key name "${cfg.theme.name}"
+        fi
+        
+        if [ -f $HOME/.config/kdeglobals ]; then
+          ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/kdeglobals --group General --key ColorScheme "${cfg.theme.colorScheme}"
+        fi
         
         # Apply wallpaper if set
-        if [ -n "${if cfg.wallpaper != null then cfg.wallpaper else ""}" ]; then
+        if [ -n "${if cfg.wallpaper != null then cfg.wallpaper else ""}" ] && [ -f $HOME/.config/plasmarc ]; then
           ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/plasmarc --group Theme --key wallpaper "${cfg.wallpaper}"
         fi
         
         # Restart Plasma to apply changes
         if command -v kquitapp5 >/dev/null 2>&1; then
           kquitapp5 plasmashell || true
+          sleep 1
           kstart5 plasmashell
         fi
         
