@@ -104,9 +104,9 @@
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
       # Import your home-manager configuration
-      "xavier@nixos-vm" = import ../home-manager/home.nix;
-      "xavier@gurb" = import ../home-manager/home.nix;
-      "xavier@as-xvi" = import ../home-manager/home.nix;
+      "xavier@nixos-vm" = import ../home-manager/xavier.nix;
+      "xavier@gurb" = import ../home-manager/xavier.nix;
+      "xavier@as-xvi" = import ../home-manager/xavier.nix;
     };
   };
 
