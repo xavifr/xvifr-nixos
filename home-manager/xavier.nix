@@ -50,8 +50,8 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "Xavier Franquet"
-    userEmail = "xavier@franquet.es"    
+    userName = "Xavier Franquet";
+    userEmail = "xavier@franquet.es";
   };
 
   # Nicely reload system units when changing configs
