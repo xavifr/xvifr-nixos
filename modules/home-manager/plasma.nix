@@ -56,6 +56,7 @@ in {
     home.packages = with pkgs; [
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.qt5.qtgraphicaleffects
+      libsForQt5.qt5.qttools
     ];
 
     warnings = mkIf (!cfg.force) [
@@ -107,8 +108,8 @@ in {
     home.activation.applyPlasmaChanges = lib.hm.dag.entryAfter ["writeBoundary"] ''
       if [ -n "$DISPLAY" ]; then
         echo "Applying Plasma changes..."
-        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.KWin /KWin reconfigure
-        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
+        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.KWin /KWin reconfigure
+        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
           var allDesktops = desktops();
           for (i=0; i<allDesktops.length; i++) {
             d = allDesktops[i];
@@ -117,7 +118,7 @@ in {
             d.writeConfig("Image", "${if cfg.wallpaper != null then cfg.wallpaper else ""}");
           }
         '
-        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentLayout
+        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentLayout
         echo "Plasma changes applied!"
       else
         echo "No display detected, skipping Plasma changes"
