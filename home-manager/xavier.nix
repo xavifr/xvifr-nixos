@@ -46,7 +46,7 @@
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
     chromium
-    cursor
+    code-cursor
   ];
 
   modules.kubernetes.enable = true;
