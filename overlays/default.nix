@@ -6,7 +6,9 @@
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = final: prev: {
+  modifications = final: prev: let
+    inherit (prev) lib stdenvNoCC;
+  in {
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
@@ -17,15 +19,15 @@
 
       # Ensure rsync is available during the installPhase (and other original nativeBuildInputs)
       nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ (
-        lib.optionals stdenvNoCC.hostPlatform.isLinux [ pkgs.rsync ]
+        lib.optionals stdenvNoCC.hostPlatform.isLinux [ prev.rsync ]
       );
 
-      cursorRawAppImageSource = fetchurl {
+      cursorRawAppImageSource = prev.fetchurl {
         url = "https://downloads.cursor.com/production/02270c8441bdc4b2fdbc30e6f470a589ec78d60d/linux/x64/Cursor-0.50.7-x86_64.AppImage";
         sha256 = "ukYsLtwnM+yjeDX24Bls7c0MhxeMGOemdQFF6t8Mqvg=";
       };
 
-      customWrappedAppimage = appimageTools.wrapType2 {
+      customWrappedAppimage = prev.appimageTools.wrapType2 {
         inherit pname version;
         src = cursorRawAppImageSource;
         extraPkgs = pkgsFHS: (with pkgsFHS; [
@@ -39,7 +41,7 @@
         # extraMakeWrapperArgs = [ "--inherit-env" "SSH_AUTH_SOCK" ];
       };
 
-      customAppimageContents = appimageTools.extractType2 {
+      customAppimageContents = prev.appimageTools.extractType2 {
         inherit pname version;
         src = cursorRawAppImageSource;
       };
