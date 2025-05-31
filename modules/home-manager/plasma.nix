@@ -56,7 +56,9 @@ in {
     home.packages = with pkgs; [
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.qt5.qtgraphicaleffects
-      libsForQt5.qt5.qttools
+      plasma5Packages.kconfig
+      plasma5Packages.kconfigwidgets
+      plasma5Packages.kcoreaddons
     ];
 
     warnings = mkIf (!cfg.force) [
@@ -108,17 +110,22 @@ in {
     home.activation.applyPlasmaChanges = lib.hm.dag.entryAfter ["writeBoundary"] ''
       if [ -n "$DISPLAY" ]; then
         echo "Applying Plasma changes..."
-        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.KWin /KWin reconfigure
-        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
-          var allDesktops = desktops();
-          for (i=0; i<allDesktops.length; i++) {
-            d = allDesktops[i];
-            d.wallpaperPlugin = "org.kde.image";
-            d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
-            d.writeConfig("Image", "${if cfg.wallpaper != null then cfg.wallpaper else ""}");
-          }
-        '
-        ${pkgs.libsForQt5.qt5.qttools}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentLayout
+        
+        # Apply theme changes
+        ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/plasmarc --group Theme --key name "${cfg.theme.name}"
+        ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/kdeglobals --group General --key ColorScheme "${cfg.theme.colorScheme}"
+        
+        # Apply wallpaper if set
+        if [ -n "${if cfg.wallpaper != null then cfg.wallpaper else ""}" ]; then
+          ${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5 --file $HOME/.config/plasmarc --group Theme --key wallpaper "${cfg.wallpaper}"
+        fi
+        
+        # Restart Plasma to apply changes
+        if command -v kquitapp5 >/dev/null 2>&1; then
+          kquitapp5 plasmashell || true
+          kstart5 plasmashell
+        fi
+        
         echo "Plasma changes applied!"
       else
         echo "No display detected, skipping Plasma changes"
