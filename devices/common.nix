@@ -98,6 +98,8 @@
     htop
     vim
     curl
+
+    docker
   ];
 
   home-manager = {

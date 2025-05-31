@@ -12,6 +12,8 @@
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
+    outputs.homeManagerModules.kubernetes
+
   ];
 
   nixpkgs = {
@@ -46,6 +48,8 @@
     chromium
     cursor
   ];
+
+  modules.kubernetes.enable = true;
 
   programs.home-manager.enable = true;
   programs.git = {
