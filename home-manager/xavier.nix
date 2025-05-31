@@ -13,6 +13,7 @@
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
     outputs.homeManagerModules.kubernetes
+    outputs.homeManagerModules.plasma
 
   ];
 
@@ -50,6 +51,12 @@
   ];
 
   modules.kubernetes.enable = true;
+
+  modules.plasma = {
+    enable = true;
+    wallpaper = "./wallpaper.jpeg"
+    
+  };
 
   programs.home-manager.enable = true;
   programs.git = {
