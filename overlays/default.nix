@@ -13,7 +13,7 @@
     # ...
     # });
 
-    cursor = prev.cursor.overrideAttrs (oldAttrs: rec {
+    code-cursor = prev.code-cursor.overrideAttrs (oldAttrs: rec {
       version = "0.50.7";
       pname = oldAttrs.pname;
 

@@ -105,9 +105,6 @@
     users = {
       # Import your home-manager configuration
       xavier = import ../home-manager/xavier.nix;
-      "xavier@nixos-vm" = import ../home-manager/xavier.nix;
-      "xavier@gurb" = import ../home-manager/xavier.nix;
-      "xavier@as-xvi" = import ../home-manager/xavier.nix;
     };
   };
 
