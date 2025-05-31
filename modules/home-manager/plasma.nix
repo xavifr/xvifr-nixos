@@ -102,5 +102,26 @@ in {
         force = cfg.force;
       };
     } else {});
+
+    # Script to apply Plasma changes
+    home.activation.applyPlasmaChanges = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ -n "$DISPLAY" ]; then
+        echo "Applying Plasma changes..."
+        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.KWin /KWin reconfigure
+        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript '
+          var allDesktops = desktops();
+          for (i=0; i<allDesktops.length; i++) {
+            d = allDesktops[i];
+            d.wallpaperPlugin = "org.kde.image";
+            d.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
+            d.writeConfig("Image", "${if cfg.wallpaper != null then cfg.wallpaper else ""}");
+          }
+        '
+        ${pkgs.libsForQt5.qt5.qtbase}/bin/qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.refreshCurrentLayout
+        echo "Plasma changes applied!"
+      else
+        echo "No display detected, skipping Plasma changes"
+      fi
+    '';
   };
 } 
