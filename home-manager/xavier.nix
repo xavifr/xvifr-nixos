@@ -54,8 +54,8 @@
 
   modules.plasma = {
     enable = true;
-    wallpaper = "./wallpaper.jpeg"
-    
+    wallpaper = "./wallpaper.jpeg";
+
   };
 
   programs.home-manager.enable = true;

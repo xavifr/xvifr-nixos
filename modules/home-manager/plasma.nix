@@ -43,6 +43,12 @@ in {
         description = "Color scheme name";
       };
     };
+
+    force = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Force overwrite existing KDE configuration files";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -50,6 +56,10 @@ in {
     home.packages = with pkgs; [
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.qt5.qtgraphicaleffects
+    ];
+
+    warnings = mkIf (!cfg.force) [
+      "KDE Plasma configuration files will not be overwritten. Set modules.plasma.force = true to override this."
     ];
 
     # Configure KDE Plasma
@@ -69,6 +79,7 @@ in {
           ${optionalString cfg.panels.top (panelConfig "4")}
           ${optionalString cfg.panels.bottom (panelConfig "2")}
         '';
+        force = cfg.force;
       };
 
       # KDE configuration
@@ -79,6 +90,7 @@ in {
           Name=${cfg.theme.name}
           widgetStyle=Breeze
         '';
+        force = cfg.force;
       };
     } // (if cfg.wallpaper != null then {
       "plasmarc" = {
@@ -87,6 +99,7 @@ in {
           name=${cfg.theme.name}
           wallpaper=${cfg.wallpaper}
         '';
+        force = cfg.force;
       };
     } else {});
   };
