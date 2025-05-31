@@ -44,6 +44,7 @@
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
     chromium
+    outputs.packages.cursor
   ];
 
   programs.home-manager.enable = true;

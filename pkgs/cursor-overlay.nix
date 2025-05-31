@@ -29,7 +29,7 @@ in
       src = cursorRawAppImageSource;
       extraPkgs = pkgsFHS: (with pkgsFHS; [
         git
-        openssh-no-checkperm
+        #openssh-no-checkperm
         # rsync is not needed here for the FHS env if only installPhase uses it.
         # However, having it here doesn't hurt if Cursor itself might ever call rsync.
         # For this specific error, nativeBuildInputs is the fix.
