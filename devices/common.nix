@@ -10,7 +10,7 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-        inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
   ];
 
 
@@ -92,6 +92,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.home-manager.packages.${pkgs.system}.default
     git
     wget
     htop
@@ -99,6 +100,15 @@
     curl
   ];
 
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
+    users = {
+      # Import your home-manager configuration
+      "xavier@nixos-vm" = import ../home-manager/home.nix;
+      "xavier@gurb" = import ../home-manager/home.nix;
+      "xavier@as-xvi" = import ../home-manager/home.nix;
+    };
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
