@@ -11,8 +11,11 @@
   # You can import other NixOS modules here
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    "${builtins.fetchTarball {
+      url = "https://github.com/ryantm/agenix/archive/main.tar.gz";
+      sha256 = "0ngkhf7qamibhbl9z1dryzscd36y4fz1m1h6fb2z6fylw0b8029p";
+    }}/modules/age.nix"
   ];
-
 
   nixpkgs = {
     # You can add overlays here
@@ -30,6 +33,7 @@
       allowUnfree = true;
     };
   };
+
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -61,6 +65,21 @@
       extraGroups = ["wheel" "networkmanager" "docker"];
     };
   };
+
+  age = {
+    identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secretsDir = "/run/agenix";
+
+    secrets = {
+      secret_as-xvi_ssh_key = {
+        file = ../secrets/secret_as-xvi_ssh_key.age;
+        owner = "xavier";
+        group = "users";
+        mode = "0600";
+      };
+    };
+  };
+
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -103,7 +122,11 @@
   ];
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
+    extraSpecialArgs = { 
+      inherit inputs outputs; 
+      inherit (config.age) secrets;
+    };
+
     users = {
       # Import your home-manager configuration
       xavier = import ../home-manager/xavier.nix;

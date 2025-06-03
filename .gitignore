@@ -13,7 +13,7 @@ result-*
 .envrc
 
 # Secrets
-secrets/*.age
+#secrets/*.age
 secrets/*.pub
 secrets/*.key
 
