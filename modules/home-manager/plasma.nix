@@ -13,4 +13,7 @@ in {
     enable = mkEnableOption "KDE Plasma customization";
   };
 
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+    ];
 } 

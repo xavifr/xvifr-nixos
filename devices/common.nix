@@ -11,10 +11,12 @@
   # You can import other NixOS modules here
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    "${builtins.fetchTarball {
+
+    outputs.nixosModules.agenix
+    /*"${builtins.fetchTarball {
       url = "https://github.com/ryantm/agenix/archive/main.tar.gz";
       sha256 = "0ngkhf7qamibhbl9z1dryzscd36y4fz1m1h6fb2z6fylw0b8029p";
-    }}/modules/age.nix"
+    }}/modules/age.nix"*/
   ];
 
   nixpkgs = {
@@ -65,6 +67,8 @@
       extraGroups = ["wheel" "networkmanager" "docker"];
     };
   };
+
+  modules.agenix.enable = true;
 
   age = {
     identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
@@ -129,7 +133,7 @@
 
     users = {
       # Import your home-manager configuration
-      xavier = import ../home-manager/xavier.nix;
+      xavier = import (../home-manager + "/xavier-at-${config.networking.hostName}.nix");
     };
   };
 
