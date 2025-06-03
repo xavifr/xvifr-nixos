@@ -7,6 +7,6 @@
   plasma = import ./plasma.nix;
   as-dev = import ./as-dev.nix;
   dev = import ./dev.nix;
-  print-3d-tools = import ./3d-printer.nix
+  print-3d-tools = import ./3d-printer.nix;
 
 }
