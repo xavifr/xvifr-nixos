@@ -40,7 +40,6 @@
     kdePackages.kwallet-pam
     kdePackages.plasma-browser-integration
     kdePackages.plasma-thunderbolt
-
   ];
 
   programs.kdeconnect.enable = true;

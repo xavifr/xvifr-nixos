@@ -56,9 +56,10 @@
     extensions = [
       "nngceckbapebfimnlniiiahkandclblb" # bitwarden
       "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
-      "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
+      # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
     ];
   };
+
 
   modules.agenix.enable = true;
 
