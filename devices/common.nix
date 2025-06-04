@@ -12,6 +12,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
 
+
     outputs.nixosModules.agenix
     #"${builtins.fetchTarball {
     #  url = "https://github.com/ryantm/agenix/archive/main.tar.gz";
@@ -68,7 +69,6 @@
     };
   };
 
-  modules.agenix.enable = true;
 
   age = {
     identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
@@ -117,6 +117,7 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
+      X11Forwarding = true;
     };
   };
 
@@ -130,6 +131,11 @@
 
     docker
   ];
+
+  programs.nix-ld.enable = true;
+
+  # Enable docker
+  virtualisation.docker.enable = true;
 
   home-manager = {
     extraSpecialArgs = { 

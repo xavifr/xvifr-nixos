@@ -14,6 +14,7 @@
     outputs.homeManagerModules.kubernetes
     outputs.homeManagerModules.plasma
     outputs.homeManagerModules.dev
+    outputs.homeManagerModules.agenix
   ];
 
   nixpkgs = {
@@ -49,15 +50,10 @@
   home.packages = with pkgs; [
     chromium
 
-
-    (pkgs.callPackage "${builtins.fetchTarball {
-      url = "https://github.com/ryantm/agenix/archive/main.tar.gz";
-      sha256 = "0ngkhf7qamibhbl9z1dryzscd36y4fz1m1h6fb2z6fylw0b8029p";
-    }}/pkgs/agenix.nix" {})
   ];
 
   modules.kubernetes.enable = true;
-
+  
 
   programs.ssh = {
     enable = true;

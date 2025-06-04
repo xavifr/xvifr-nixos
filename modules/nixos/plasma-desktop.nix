@@ -35,6 +35,16 @@
     #media-session.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [
+    kdePackages.kwallet
+    kdePackages.kwallet-pam
+    kdePackages.plasma-browser-integration
+    kdePackages.plasma-thunderbolt
+
+  ];
+
+  programs.kdeconnect.enable = true;
+
   services.flatpak.enable = true;
 
 
