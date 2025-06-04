@@ -81,6 +81,12 @@
         group = "users";
         mode = "0600";
       };
+      secret_xvi_ssh_key = {
+        file = ../secrets/secret_xvi_ssh_key.age;
+        owner = "xavier";
+        group = "users";
+        mode = "0600";
+      };
     };
   };
 
