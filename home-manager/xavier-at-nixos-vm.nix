@@ -14,6 +14,7 @@
   imports = [
     ./hm-common.nix
     outputs.homeManagerModules.plasma
+    outputs.homeManagerModules.dev
   ];
 
   nixpkgs = {
