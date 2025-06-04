@@ -1,28 +1,36 @@
 # This file defines overlays
-{inputs, ...}: {
+{ inputs, ... }:
+{
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ../pkgs final.pkgs;
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = final: prev: let
-    inherit (prev) lib stdenvNoCC;
-  in {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+  modifications =
+    final: prev:
+    let
+      inherit (prev) lib stdenvNoCC;
+    in
+    {
+      # example = prev.example.overrideAttrs (oldAttrs: rec {
+      # ...
+      # });
 
-    code-cursor = prev.code-cursor.overrideAttrs (import ./code-cursor.nix {
-      inherit lib stdenvNoCC;
-      inherit (prev) fetchurl appimageTools rsync;
-    });
+      code-cursor = prev.code-cursor.overrideAttrs (
+        import ./code-cursor.nix {
+          inherit lib stdenvNoCC;
+          inherit (prev) fetchurl appimageTools rsync;
+        }
+      );
 
-    openssh-no-checkperm = prev.openssh.overrideAttrs (import ./ssh-no-perm.nix {
-      inherit lib;
-      patchFile = ../patches/openssh-no-checkperm.patch;
-    });
-  };
+      openssh-no-checkperm = prev.openssh.overrideAttrs (
+        import ./ssh-no-perm.nix {
+          inherit lib;
+          patchFile = ../patches/openssh-no-checkperm.patch;
+        }
+      );
+    };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'

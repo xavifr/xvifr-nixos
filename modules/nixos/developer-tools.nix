@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options = {
     modules.developer-tools = {
       enable = lib.mkEnableOption "Enable developer tools";
@@ -26,10 +27,10 @@
       opentofu
       k9s
       kubectl
-      (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
 
       pgadmin4
       mysql-workbench
     ];
   };
-} 
+}

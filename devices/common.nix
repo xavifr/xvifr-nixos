@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -31,25 +32,26 @@
     };
   };
 
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+      };
+      # Opinionated: disable channels
+      channel.enable = false;
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
-    # Opinionated: disable channels
-    channel.enable = false;
-
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
 
   users.users = {
     xavier = {
@@ -59,10 +61,13 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApzCHCSQflPkh7oPjpQ+V9MAFR5fvlE/1PAvMoYoSN3 xavier@gurb"
       ];
 
-      extraGroups = ["wheel" "networkmanager" "docker"];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "docker"
+      ];
     };
   };
-
 
   age = {
     identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
@@ -84,7 +89,6 @@
     };
   };
 
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -105,7 +109,7 @@
     LC_TELEPHONE = "es_ES.UTF-8";
     LC_TIME = "es_ES.UTF-8";
   };
-  
+
   services.openssh = {
     enable = true;
     settings = {
@@ -130,10 +134,9 @@
     curl
   ];
 
-
   home-manager = {
-    extraSpecialArgs = { 
-      inherit inputs outputs; 
+    extraSpecialArgs = {
+      inherit inputs outputs;
       inherit (config.age) secrets;
     };
 

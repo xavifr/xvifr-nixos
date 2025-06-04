@@ -1,13 +1,13 @@
-{ config
-, lib
-, pkgs
-, secrets
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
 }:
 {
   home.packages = with pkgs; [
   ];
-
 
   programs.git = {
     enable = true;
@@ -23,8 +23,8 @@
         "editor.cursorBlinking" = "smooth";
         "files.autoSave" = "afterDelay";
         "files.autoSaveDelay" = 1000;
-        "window.commandCenter"= true;
-        "workbench.colorTheme"= "Cursor Dark High Contrast";
+        "window.commandCenter" = true;
+        "workbench.colorTheme" = "Cursor Dark High Contrast";
       };
       extensions = with pkgs.vscode-extensions; [
         golang.go
@@ -45,6 +45,6 @@
     addKeysToAgent = "yes";
     extraConfig = ''
       IdentityFile ${secrets.secret_xvi_ssh_key.path}
-    '';    
+    '';
   };
-} 
+}

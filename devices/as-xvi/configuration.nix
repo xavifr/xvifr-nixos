@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     ./hardware-configuration.nix
@@ -23,7 +24,8 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.luks.devices."luks-48d13175-9b4b-41cf-b7b3-0268ae7e13c8".device = "/dev/disk/by-uuid/48d13175-9b4b-41cf-b7b3-0268ae7e13c8";
+  boot.initrd.luks.devices."luks-48d13175-9b4b-41cf-b7b3-0268ae7e13c8".device =
+    "/dev/disk/by-uuid/48d13175-9b4b-41cf-b7b3-0268ae7e13c8";
 
   networking.hostName = "as-xvi";
 
@@ -33,7 +35,7 @@
 
   # Install Bolt Daemon
   services.hardware.bolt.enable = true;
-  
+
   modules.developer-tools.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

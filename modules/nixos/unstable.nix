@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options = {
     modules.unstable = {
       enable = lib.mkEnableOption "Enable nixpkgs-unstable";
@@ -19,4 +20,4 @@
       };
     };
   };
-} 
+}

@@ -1,16 +1,17 @@
-{ config
-, lib
-, pkgs
-, secrets
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  secrets,
+  ...
 }:
 {
   home.packages = with pkgs; [
     bitwarden-desktop
     telegram-desktop
-
+    nixfmt-rfc-style
+    nil
   ];
-
 
   programs.git = {
     enable = true;
@@ -26,9 +27,10 @@
         "editor.cursorBlinking" = "smooth";
         "files.autoSave" = "afterDelay";
         "files.autoSaveDelay" = 1000;
-        "window.commandCenter"= true;
-        "workbench.colorTheme"= "Cursor Dark High Contrast";
+        "window.commandCenter" = true;
+        "workbench.colorTheme" = "Cursor Dark High Contrast";
         "workbench.tree.indent" = 24;
+
       };
 
       extensions = with pkgs.vscode-extensions; [
@@ -39,7 +41,7 @@
         ms-python.python
         eamodio.gitlens
         ms-azuretools.vscode-docker
-        bbenoist.nix
+        jnoortheen.nix-ide
       ];
     };
   };
@@ -55,7 +57,7 @@
         IdentityFile ${secrets.secret_xvi_ssh_key.path}
         User git
         Port 22
-    '';    
+    '';
   };
 
-} 
+}

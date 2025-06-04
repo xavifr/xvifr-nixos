@@ -1,4 +1,11 @@
-{ config, pkgs, lib, user, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  user,
+  ...
+}:
+{
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
@@ -45,6 +52,5 @@
   programs.kdeconnect.enable = true;
 
   services.flatpak.enable = true;
-
 
 }

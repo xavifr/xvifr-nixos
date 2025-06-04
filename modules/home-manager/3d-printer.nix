@@ -1,14 +1,16 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 with lib;
 
 let
   cfg = config.modules.as-dev;
-in {
+in
+{
   options.modules.kubernetes = {
     enable = mkEnableOption "3D Printer tools";
   };
@@ -23,4 +25,4 @@ in {
     # Optional: Add kubectl configuration
     # xdg.configFile."kubectl/config".source = ./kubectl-config;
   };
-} 
+}

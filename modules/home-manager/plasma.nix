@@ -1,14 +1,16 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 with lib;
 
 let
   cfg = config.modules.plasma;
-in {
+in
+{
   options.modules.plasma = {
     enable = mkEnableOption "KDE Plasma customization";
   };
@@ -17,4 +19,4 @@ in {
     home.packages = with pkgs; [
     ];
   };
-} 
+}
