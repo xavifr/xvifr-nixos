@@ -11,7 +11,6 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-    outputs.homeManagerModules.kubernetes
     outputs.homeManagerModules.plasma
     outputs.homeManagerModules.dev
     outputs.homeManagerModules.agenix
@@ -48,24 +47,31 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    chromium
-
   ];
 
-  modules.kubernetes.enable = true;
-  
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
+      "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
+      # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
+    ];
+  };
 
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
-    extraConfig = ''
+    extraConfigOverride = ''
       Host p.github.com
         Hostname github.com
         IdentityFile ${secrets.secret_xvi_ssh_key.path}
         User git
         Port 22
 
-      IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
+      Host *
+        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
+        ServerAliveCountMax 3
+        HashKnownHosts no
 
     '';
     

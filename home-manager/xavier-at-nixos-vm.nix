@@ -11,9 +11,9 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-    outputs.homeManagerModules.kubernetes
     outputs.homeManagerModules.plasma
     outputs.homeManagerModules.dev
+    outputs.homeManagerModules.agenix
   ];
 
   nixpkgs = {
@@ -47,18 +47,18 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
-    chromium
-
-
-    (pkgs.callPackage "${builtins.fetchTarball {
-      url = "https://github.com/ryantm/agenix/archive/main.tar.gz";
-      sha256 = "0ngkhf7qamibhbl9z1dryzscd36y4fz1m1h6fb2z6fylw0b8029p";
-    }}/pkgs/agenix.nix" {})
   ];
 
-  modules.kubernetes.enable = true;
+  modules.agenix.enable = true;
 
-
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
+      "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
+      # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
+    ];
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

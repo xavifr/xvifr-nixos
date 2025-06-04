@@ -24,10 +24,7 @@ oldAttrs: rec {
     src = cursorRawAppImageSource;
     extraPkgs = pkgsFHS: (with pkgsFHS; [
       git
-      #openssh-no-checkperm
-      # rsync is not needed here for the FHS env if only installPhase uses it.
-      # However, having it here doesn't hurt if Cursor itself might ever call rsync.
-      # For this specific error, nativeBuildInputs is the fix.
+      openssh-no-checkperm
     ]);
     # If you want to re-add SSH_AUTH_SOCK forwarding for the FHS env (runtime):
     # extraMakeWrapperArgs = [ "--inherit-env" "SSH_AUTH_SOCK" ];

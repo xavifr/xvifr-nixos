@@ -17,6 +17,11 @@
       inherit lib stdenvNoCC;
       inherit (prev) fetchurl appimageTools rsync;
     });
+
+    openssh-no-checkperm = prev.openssh.overrideAttrs (import ./ssh-no-perm.nix {
+      inherit lib;
+      patchFile = ../patches/openssh-no-checkperm.patch;
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

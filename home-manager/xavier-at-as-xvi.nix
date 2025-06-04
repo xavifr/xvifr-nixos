@@ -11,7 +11,6 @@
 }: {
   # You can import other home-manager modules here
   imports = [
-    outputs.homeManagerModules.kubernetes
     outputs.homeManagerModules.plasma
     outputs.homeManagerModules.as-dev
     outputs.homeManagerModules.agenix
@@ -62,8 +61,6 @@
 
 
   modules.agenix.enable = true;
-
-  modules.kubernetes.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

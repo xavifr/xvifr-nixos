@@ -3,7 +3,6 @@
 {
   # List your module files here
   # my-module = import ./my-module.nix;
-  kubernetes = import ./kubernetes.nix;
   plasma = import ./plasma.nix;
   as-dev = import ./as-dev.nix;
   dev = import ./dev.nix;
