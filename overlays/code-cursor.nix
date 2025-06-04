@@ -5,18 +5,21 @@
   appimageTools,
   rsync,
 }:
-
-oldAttrs: rec {
-  version = "0.50.7";
+let 
+  cursor_version = "1.0.0";
+  cursor_url = "https://downloads.cursor.com/production/53b99ce608cba35127ae3a050c1738a959750865/linux/x64/Cursor-1.0.0-x86_64.AppImage";
+  cursor_sha256 = "HJiT3aDB66K2slcGJDC21+WhK/kv4KCKVZgupbfmLG0=";
+in oldAttrs: rec {
   pname = oldAttrs.pname;
+  version = cursor_version;
 
   # Ensure rsync is available during the installPhase (and other original nativeBuildInputs)
   nativeBuildInputs =
     (oldAttrs.nativeBuildInputs or [ ]) ++ (lib.optionals stdenvNoCC.hostPlatform.isLinux [ rsync ]);
 
   cursorRawAppImageSource = fetchurl {
-    url = "https://downloads.cursor.com/production/02270c8441bdc4b2fdbc30e6f470a589ec78d60d/linux/x64/Cursor-0.50.7-x86_64.AppImage";
-    sha256 = "ukYsLtwnM+yjeDX24Bls7c0MhxeMGOemdQFF6t8Mqvg=";
+    url = cursor_url;
+    sha256 = cursor_sha256;
   };
 
   customWrappedAppimage = appimageTools.wrapType2 {

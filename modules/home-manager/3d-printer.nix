@@ -17,12 +17,13 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # ultimaker cura
-      # blender
-      # slicer?
+      cura-appimage
+      blender
+      # extra slicer?
     ];
 
-    # Optional: Add kubectl configuration
-    # xdg.configFile."kubectl/config".source = ./kubectl-config;
+
+    # Optional: Add cura profiles
+    # xdg.configFile."cura/files".source = ./kubectl-config;
   };
 }

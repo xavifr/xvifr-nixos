@@ -12,9 +12,8 @@
 {
   # You can import other home-manager modules here
   imports = [
+    ./hm-common.nix
     outputs.homeManagerModules.plasma
-    outputs.homeManagerModules.dev
-    outputs.homeManagerModules.agenix
   ];
 
   nixpkgs = {
@@ -43,26 +42,10 @@
     homeDirectory = "/home/xavier";
   };
 
-  programs.home-manager.enable = true;
-
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
   ];
-
-  modules.agenix.enable = true;
-
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
-      "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
-      # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
-    ];
-  };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "25.05";
