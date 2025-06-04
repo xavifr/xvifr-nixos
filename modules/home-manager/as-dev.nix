@@ -50,14 +50,19 @@
     enable = true;
     addKeysToAgent = "yes";
     extraConfig = ''
-      #IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
-
       Host p.github.com
         Hostname github.com
         IdentityFile ${secrets.secret_xvi_ssh_key.path}
         User git
         Port 22
+
+      Host *
+        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
+        ServerAliveCountMax 3
+        HashKnownHosts no
+
     '';
+
   };
 
 }

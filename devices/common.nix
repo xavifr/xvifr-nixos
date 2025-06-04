@@ -70,7 +70,7 @@
   };
 
   age = {
-    identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    identityPaths = [ "/tmp/master-key" "/etc/ssh/ssh_host_ed25519_key" ];
     secretsDir = "/run/agenix";
 
     secrets = {

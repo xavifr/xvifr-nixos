@@ -14,7 +14,7 @@
     userName = "Xavier Franquet";
     userEmail = "xavier@franquet.es";
   };
-
+  
   programs.vscode = {
     enable = true;
     package = pkgs.code-cursor;
