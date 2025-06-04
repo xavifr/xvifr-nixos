@@ -64,6 +64,16 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    extraConfig = ''
+        IdentityFile ${secrets.secret_xvi_ssh_key.path}
+
+    '';
+
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "25.05";
 }
