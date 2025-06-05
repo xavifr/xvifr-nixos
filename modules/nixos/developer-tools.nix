@@ -29,8 +29,17 @@
       kubectl
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
 
-      pgadmin4
+      dbeaver-bin
       mysql-workbench
     ];
+
+/*     services.pgadmin = {
+      enable = true;
+      initialEmail = "xavier.franquet@aistechspace.com";
+      initialPasswordFile = "/etc/nixos/secrets/pgadmin_password";
+      port = 5054;
+    }; */
+
   };
+
 }

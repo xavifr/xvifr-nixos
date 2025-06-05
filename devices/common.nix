@@ -51,6 +51,12 @@
       # Opinionated: make flake registry and nix path match flake inputs
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 7d";
+      };
     };
 
   users.users = {
@@ -70,7 +76,10 @@
   };
 
   age = {
-    identityPaths = [ "/tmp/master-key" "/etc/ssh/ssh_host_ed25519_key" ];
+    identityPaths = [
+      "/tmp/master-key"
+      "/etc/ssh/ssh_host_ed25519_key"
+    ];
     secretsDir = "/run/agenix";
 
     secrets = {
@@ -123,6 +132,8 @@
 
   programs.nix-ld.enable = true;
 
+  programs.ssh.startAgent = true;
+
   # Enable docker system-wide for all devices
   virtualisation.docker.enable = true;
 
@@ -132,6 +143,7 @@
     htop
     vim
     curl
+    killall
   ];
 
   home-manager = {

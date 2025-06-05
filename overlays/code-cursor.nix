@@ -31,8 +31,9 @@ in oldAttrs: rec {
         git
         openssh-no-checkperm
       ]);
+
     # If you want to re-add SSH_AUTH_SOCK forwarding for the FHS env (runtime):
-    # extraMakeWrapperArgs = [ "--inherit-env" "SSH_AUTH_SOCK" ];
+    extraMakeWrapperArgs = [ "--inherit-env" "SSH_AUTH_SOCK" ];
   };
 
   customAppimageContents = appimageTools.extractType2 {
