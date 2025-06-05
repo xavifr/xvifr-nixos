@@ -5,9 +5,21 @@
   inputs,
   ...
 }:
+
+with lib;
+
+let
+  cfg = config.modules.uping;
+in
 {
-  home.packages = with pkgs; [
-   (pkgs.callPackage "${inputs.uping}/pkgs/uping.nix" { })
-  ];
+  options.modules.uping = {
+    enable = mkEnableOption "Uping";
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      inputs.uping.packages.${pkgs.system}.default
+    ];
+  };
 }
 
