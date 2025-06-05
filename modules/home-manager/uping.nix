@@ -2,11 +2,12 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
   home.packages = with pkgs; [
-   (pkgs.callPackage "${builtins.fetchTarball "https://github.com/xavifr/uping/flake.nix" { }}/pkgs/uping.nix" { })
+   (pkgs.callPackage "${inputs.uping}/pkgs/uping.nix" { })
   ];
 }
 

@@ -13,6 +13,10 @@
     # Agenix for secrets management
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Uping
+    uping.url = "github:xavifr/uping";
+    uping.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
