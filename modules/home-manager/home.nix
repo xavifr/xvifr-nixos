@@ -7,6 +7,8 @@
 }:
 {
   home.packages = with pkgs; [
+    telegram-desktop
+    wasistlos
   ];
 
   programs.git = {
@@ -27,16 +29,6 @@
         "workbench.colorTheme" = "Monokai";
         "workbench.tree.indent" = 24;
         "workbench.activityBar.orientation" = "vertical";
-        "terminal.integrated.profiles.linux" = {
-          "customProfile" = {
-            "path" = "/bin/bash";
-            "args" = [
-              "-c"
-              "eval $(ssh-agent -s) >/dev/null && exec bash && echo \"KILLING $SSH_AGENT_PID\" && sleep 3 && kill $SSH_AGENT_PID"
-            ];
-          };
-        };
-        "terminal.integrated.defaultProfile.linux" = "customProfile";
       };
       extensions = with pkgs.vscode-extensions; [
         golang.go
@@ -54,15 +46,24 @@
   programs.ssh = {
     enable = true;
     extraConfig = ''
-      AddKeysToAgent yes
-      IdentityFile ${secrets.secret_xvi_ssh_key.path}
+      Host github.com
+        Hostname github.com
+        IdentityFile ${secrets.secret_xvi_ssh_key.path}
+        User git
+        Port 22
+
+      Host as.bitbucket.org
+        Hostname github.com
+        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
+        User git
+        Port 22
 
       Host as.github.com
-          AddKeysToAgent no
-          Hostname github.com
-          IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
-          User git
-          Port 22      
+        AddKeysToAgent no
+        Hostname github.com
+        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
+        User git
+        Port 22
     '';
   };
 

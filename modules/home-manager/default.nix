@@ -4,8 +4,8 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   plasma = import ./plasma.nix;
-  as-dev = import ./as-dev.nix;
-  dev = import ./dev.nix;
+  aistech = import ./aistech.nix;
+  home = import ./home.nix;
   print-3d-tools = import ./3d-printer.nix;
   agenix = import ./agenix.nix;
 }

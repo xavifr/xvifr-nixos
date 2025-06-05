@@ -14,7 +14,7 @@
   imports = [
     ./hm-common.nix
     outputs.homeManagerModules.plasma
-    outputs.homeManagerModules.dev
+    outputs.homeManagerModules.home
   ];
 
   nixpkgs = {
@@ -46,6 +46,7 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
+    nil
   ];
 
 

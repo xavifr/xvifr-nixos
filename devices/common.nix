@@ -146,6 +146,11 @@
     killall
   ];
 
+  fonts.packages = with pkgs; [
+    fira-code
+    fira-code-symbols
+  ];
+  
   home-manager = {
     extraSpecialArgs = {
       inherit inputs outputs;

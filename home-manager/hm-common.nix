@@ -11,7 +11,12 @@
 }:
 {
   imports = [
-        outputs.homeManagerModules.agenix
+    outputs.homeManagerModules.agenix
+  ];
+
+  home.packages = with pkgs; [
+    bitwarden-desktop
+    nixfmt-rfc-style
   ];
 
   # chromium is global
@@ -23,7 +28,7 @@
       # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
     ];
   };
-  
+
   # agenix for everyone
   modules.agenix.enable = true;
 
