@@ -2,12 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   secrets,
   ...
 }:
 {
   home.packages = with pkgs; [
     telegram-desktop
+    inputs.uping.packages.${pkgs.system}.default
   ];
 
   programs.git = {
@@ -71,6 +73,5 @@
   };
 
   services.ssh-agent.enable = true;
-
 
 }
