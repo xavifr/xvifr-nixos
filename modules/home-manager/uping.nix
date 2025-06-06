@@ -10,15 +10,12 @@ with lib;
 let
   cfg = config.modules.uping;
 
-  # Fetch the uping repository
+  # Fetch the uping repository from GitHub (using latest commit hash)
+  # To update: get the latest commit hash from https://github.com/xavifr/uping/commits/main
+  # and update both the URL and sha256 hash
   upingSrc = builtins.fetchTarball {
-    url = "https://github.com/xavifr/uping/archive/refs/tags/v3.0.0.tar.gz";
-    sha256 = "1yr0f3vs3ix6ablv7r000h0pykb7kqlz39b9iph6acvri74ghvis";
-  };
-
-  # Fetch flake-utils
-  flake-utils = builtins.fetchTarball {
-    url = "https://github.com/numtide/flake-utils/archive/main.tar.gz";
+    url = "https://github.com/xavifr/uping/archive/8cef5a4f0af838498be669bed1c6bf5f9e48694f.tar.gz";
+    sha256 = "0arqikz5b9hmw3nyjwfz53gr0l1815b5xk3c04jv7kdgmd5q83q1";
   };
 
   # Import the uping flake
@@ -30,7 +27,6 @@ let
       lib = pkgs.lib;
       legacyPackages.${pkgs.system} = pkgs;
     };
-    flake-utils = import flake-utils;
   };
 
   # Evaluate the flake outputs function with a fixed-point to resolve self-reference
