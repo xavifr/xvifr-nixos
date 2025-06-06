@@ -10,7 +10,6 @@
   home.packages = with pkgs; [
     telegram-desktop
     wasistlos
-    inputs.uping.packages.${pkgs.system}.default
   ];
 
   programs.git = {

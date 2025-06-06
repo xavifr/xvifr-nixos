@@ -14,9 +14,6 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Uping
-    uping.url = "github:xavifr/uping/v3.0.0";
-    uping.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

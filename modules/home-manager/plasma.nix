@@ -19,13 +19,6 @@ in
     home.packages = with pkgs; [
     ];
 
-    # TODO: set default shell to fish
-    #shell = pkgs.fish;
-
-    programs.fish = {
-      enable = true;
-    };
-
     programs.starship = {
       enable = true;
       settings = {
@@ -93,6 +86,10 @@ in
           "ctrl+backspace=text:\\x15"
         ];
       };
+    };
+
+    programs.fish = {
+      enable = true;
     };
   };
 }

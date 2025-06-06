@@ -9,7 +9,6 @@
 {
   home.packages = with pkgs; [
     telegram-desktop
-    inputs.uping.packages.${pkgs.system}.default
   ];
 
   programs.git = {

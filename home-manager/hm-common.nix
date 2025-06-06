@@ -12,6 +12,7 @@
 {
   imports = [
     outputs.homeManagerModules.agenix
+    outputs.homeManagerModules.uping
   ];
 
   home.packages = with pkgs; [
@@ -31,6 +32,9 @@
 
   # agenix for everyone
   modules.agenix.enable = true;
+
+  # uping for everyone
+  modules.uping.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

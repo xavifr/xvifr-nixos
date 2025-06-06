@@ -66,6 +66,7 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApzCHCSQflPkh7oPjpQ+V9MAFR5fvlE/1PAvMoYoSN3 xavier@gurb"
       ];
+      shell = pkgs.fish;
 
       extraGroups = [
         "wheel"
@@ -150,7 +151,7 @@
     fira-code
     fira-code-symbols
   ];
-  
+
   home-manager = {
     extraSpecialArgs = {
       inherit inputs outputs;
@@ -161,6 +162,11 @@
       # Import your home-manager configuration
       xavier = import (../home-manager + "/xavier-at-${config.networking.hostName}.nix");
     };
+  };
+
+  programs.fish = {
+    enable = true;
+    shellInit = "starship init fish | source";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
