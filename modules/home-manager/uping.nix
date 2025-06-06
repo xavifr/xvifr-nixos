@@ -4,12 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
 let
-  cfg = config.modules.uping;
-
   # Fetch and import the uping flake directly
   upingFlake = import "${
     builtins.fetchTarball {
@@ -31,11 +26,5 @@ let
   );
 in
 {
-  options.modules.uping = {
-    enable = mkEnableOption "UPing";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = [ upingOutputs.packages.${pkgs.system}.default ];
-  };
+  home.packages = [ upingOutputs.packages.${pkgs.system}.default ];
 }
