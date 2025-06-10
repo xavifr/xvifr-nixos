@@ -56,8 +56,8 @@ in
 
       # Shortcuts
       shortcuts = {
-        Ghostty = {
-          "Launch" = [
+        "services/com.mitchellh.ghostty.desktop" = {
+          "_launch" = [
             "Ctrl+Alt+T"
           ];
         };
@@ -67,7 +67,91 @@ in
       panels = [
         {
           location = "bottom";
-          screen = "all";
+          screen = 0;
+          widgets = [
+            "org.kde.plasma.kickoff"
+            {
+              name = "org.kde.plasma.pager";
+              config = {
+                General.showOnlyCurrentScreen = true;
+              };
+            }
+            {
+              name = "org.kde.plasma.taskmanager";
+              config = {
+                General = {
+                  middleClickAction = "ToggleGrouping";
+                  groupingStrategy = 1;
+                  iconSpacing = 0;
+                  showOnlyCurrentScreen = true;
+                };
+              };
+            }
+            "org.kde.plasma.marginsseparator"
+            {
+              name = "org.kde.plasma.systemtray";
+              config = {
+                icons.spacing = "small";
+              };
+            }
+            {
+              name = "org.kde.plasma.digitalclock";
+              config = {
+                Appearance = {
+                  firstDayOfWeek = "monday";
+                  showWeekNumbers = true;
+                  showSeconds = "Always";
+                };
+              };
+            }
+            "org.kde.plasma.showdesktop"
+          ];
+        }
+        {
+          location = "bottom";
+          screen = 1;
+          widgets = [
+            "org.kde.plasma.kickoff"
+            {
+              name = "org.kde.plasma.pager";
+              config = {
+                General.showOnlyCurrentScreen = true;
+              };
+            }
+            {
+              name = "org.kde.plasma.taskmanager";
+              config = {
+                General = {
+                  middleClickAction = "ToggleGrouping";
+                  groupingStrategy = 1;
+                  iconSpacing = 0;
+                  showOnlyCurrentScreen = true;
+                };
+              };
+            }
+            "org.kde.plasma.marginsseparator"
+            {
+              name = "org.kde.plasma.systemtray";
+              config = {
+                icons.spacing = "small";
+              };
+            }
+            {
+              name = "org.kde.plasma.digitalclock";
+              config = {
+                Appearance = {
+                  firstDayOfWeek = "monday";
+                  showWeekNumbers = true;
+                  showSeconds = "Always";
+                };
+              };
+            }
+            "org.kde.plasma.showdesktop"
+          ];
+        }
+        {
+          location = "bottom";
+          screen = 2;
           widgets = [
             "org.kde.plasma.kickoff"
             {

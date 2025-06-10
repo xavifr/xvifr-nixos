@@ -29,6 +29,8 @@
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
+  xsession.numlock.enable = true;
+
   programs.starship = {
     enable = true;
     settings = {
@@ -84,6 +86,7 @@
     };
   };
 
+  programs.konsole.enable = false;
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;

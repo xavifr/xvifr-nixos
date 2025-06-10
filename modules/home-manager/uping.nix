@@ -7,7 +7,7 @@ let
   # Fetch and import the uping flake directly
   upingFlake = import "${
     builtins.fetchTarball {
-      url = "https://github.com/xavifr/uping/archive/8cef5a4f0af838498be669bed1c6bf5f9e48694f.tar.gz";
+      url = "https://github.com/xavifr/uping/archive/e9ffbfda0116b60ba7a22ecbe9fa6b1a367d0ec6.tar.gz";
       sha256 = "0arqikz5b9hmw3nyjwfz53gr0l1815b5xk3c04jv7kdgmd5q83q1";
     }
   }/flake.nix";

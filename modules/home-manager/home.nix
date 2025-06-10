@@ -27,6 +27,18 @@
         "workbench.colorTheme" = "Monokai";
         "workbench.tree.indent" = 24;
         "workbench.activityBar.orientation" = "vertical";
+        "git.autofetch" = true;
+        "vs-kubernetes" = {
+          "vs-kubernetes.crd-code-completion" = "enabled";
+        };
+        "terminal.external.linuxExec" = "ghostty";
+        "terminal.integrated.defaultProfile.linux" = "fish";
+        "editor.fontFamily" = "'Fira Code Symbol'";
+        "editor.inlayHints.fontFamily" = "Fira Code SymbolSymbol";
+        "editor.codeLensFontFamily" = "Fira Code Symbol";
+        "editor.inlineSuggest.fontFamily" = "Fira Code";
+        "terminal.integrated.fontFamily" = "'Fira Code', 'Fira Code Symbol'";
+        "docker.extension.experimental.composeCompletions" = true;
       };
       extensions = with pkgs.vscode-extensions; [
         golang.go
@@ -34,7 +46,6 @@
         redhat.vscode-yaml
         charliermarsh.ruff
         ms-python.python
-        eamodio.gitlens
         ms-azuretools.vscode-docker
         jnoortheen.nix-ide
       ];
