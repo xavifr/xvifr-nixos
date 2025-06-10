@@ -61,6 +61,12 @@ in
             "Ctrl+Alt+T"
           ];
         };
+        "services/org.kde.spectacle.desktop" = {
+          "RectangularRegionScreenShot" = [
+            "Print"
+            "Meta+Shift+S"
+          ];
+        };
       };
 
       # Panel configuration
