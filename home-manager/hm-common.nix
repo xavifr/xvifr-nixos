@@ -22,14 +22,13 @@
     extensions = [
       "nngceckbapebfimnlniiiahkandclblb" # bitwarden
       "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
+      "eifflpmocdbdmepbjaopkkhbfmdgijcc" # JSON Viewer Pro
       # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
     ];
   };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  xsession.numlock.enable = true;
 
   programs.starship = {
     enable = true;
