@@ -44,7 +44,10 @@
     kdePackages.kwallet-pam
     kdePackages.plasma-browser-integration
     kdePackages.plasma-thunderbolt
-  ];
+    kdePackages.okular
+    kdePackages.kate
+    kdePackages.kcalc
+ ];
 
   programs.kdeconnect.enable = true;
 

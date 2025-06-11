@@ -27,6 +27,15 @@
     ];
   };
 
+  # btop is global
+  programs.btop = {
+    enable = true;
+    settings = {
+      theme = "monokai";
+      update_ms = 1000;
+    };
+  };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
