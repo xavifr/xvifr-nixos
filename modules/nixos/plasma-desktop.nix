@@ -59,8 +59,12 @@
     kdePackages.okular
     kdePackages.kate
     kdePackages.kcalc
+
     # allow to share files between devices using dolphin
     kdePackages.kdenetwork-filesharing
+
+    # helper to kill processes
+    xorg.xkill
   ];
 
   programs.kdeconnect.enable = true;

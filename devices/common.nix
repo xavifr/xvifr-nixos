@@ -145,6 +145,7 @@
     vim
     curl
     killall
+    ncdu
   ];
 
   fonts.packages = with pkgs; [
