@@ -71,6 +71,7 @@
         "wheel"
         "networkmanager"
         "docker"
+        "samba"
       ];
     };
   };

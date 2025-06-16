@@ -23,6 +23,18 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  services.samba = {
+    enable = true;
+    usershares.enable = true;
+    openFirewall = true;
+    settings = {
+      global = {
+        "map to guest" = "Bad User";
+        "guest account" = "nobody";
+      };
+    };
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -47,7 +59,9 @@
     kdePackages.okular
     kdePackages.kate
     kdePackages.kcalc
- ];
+    # allow to share files between devices using dolphin
+    kdePackages.kdenetwork-filesharing
+  ];
 
   programs.kdeconnect.enable = true;
 
