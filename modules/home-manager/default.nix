@@ -9,4 +9,5 @@
   print-3d-tools = import ./3d-printer.nix;
   agenix = import ./agenix.nix;
   uping = import ./uping.nix;
+  ghosttyX = import ./ghosttyX.nix;
 }

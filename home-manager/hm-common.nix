@@ -103,6 +103,7 @@
       background-blur = 40;
       shell-integration = "fish";
       command = "fish";
+      #bell-features = "system"; # enable in 1.1.4
       keybind = [
         "ctrl+backspace=text:\\x15"
       ];

@@ -12,7 +12,7 @@ let
 
   # Fetch plasma-manager
   plasma-manager = builtins.fetchTarball {
-    url = "https://github.com/pjones/plasma-manager/archive/trunk.tar.gz";
+    url = "https://github.com/pjones/plasma-manager/archive/b7697abe89967839b273a863a3805345ea54ab56.tar.gz";
     sha256 = "05gw226063jbklfgcyr01a04278v7shn8a4imjg47rdzgsqf68fn";
   };
 in
@@ -24,6 +24,11 @@ in
   # Enable plasma-manager
   programs.plasma = {
     enable = true;
+
+    configFile.kdeglobals.General = {
+      TerminalApplication = "ghostty";
+      TerminalService = "com.mitchellh.ghostty.desktop";
+    };
 
     # Workspace settings
     workspace = {

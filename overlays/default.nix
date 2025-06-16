@@ -30,6 +30,12 @@
           patchFile = ../patches/openssh-no-checkperm.patch;
         }
       );
+
+      #ghostty = prev.ghostty.overrideAttrs (
+      #  import ./ghostty.nix {
+      #    inherit (prev) fetchFromGitHub;
+      #  }
+      #);
     };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
