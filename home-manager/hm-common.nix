@@ -16,6 +16,8 @@
     nixfmt-rfc-style
   ];
 
+
+
   # chromium is global
   programs.chromium = {
     enable = true;

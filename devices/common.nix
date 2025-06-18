@@ -148,6 +148,11 @@
     ncdu
   ];
 
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
+
   fonts.packages = with pkgs; [
     fira-code
     fira-code-symbols
