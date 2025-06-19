@@ -146,6 +146,7 @@
     curl
     killall
     ncdu
+    dig
   ];
 
   programs.nh = {

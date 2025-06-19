@@ -30,8 +30,14 @@
         "vs-kubernetes" = {
           "vs-kubernetes.crd-code-completion" = "enabled";
         };
+
+        "editor.fontFamily" = "'Fira Code Symbol'";
+
         "terminal.external.linuxExec" = "ghostty";
-        "terminal.integrated.defaulgra Code'";
+        "terminal.integrated.defaultProfile.linux" = "fish";
+        "terminal.integrated.fontFamily" = "'Fira Code Symbol'";
+        #"terminal.integrated.gpuAcceleration" = "canvas";
+
         "docker.extension.experimental.composeCompletions" = true;
       };
 
