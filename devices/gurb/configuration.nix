@@ -17,6 +17,10 @@
 
   # TODO: Set your hostname
   networking.hostName = "gurb";
+  
+  networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
