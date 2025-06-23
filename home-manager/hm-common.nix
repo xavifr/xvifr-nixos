@@ -16,8 +16,6 @@
     nixfmt-rfc-style
   ];
 
-
-
   # chromium is global
   programs.chromium = {
     enable = true;
@@ -109,6 +107,14 @@
       keybind = [
         "ctrl+backspace=text:\\x15"
       ];
+    };
+  };
+
+  programs.kitty = {
+    enable = true;
+    shellIntegration.enableFishIntegration = true;
+    keybindings = {
+      "ctrl+backspace" = "text:\\x15";
     };
   };
 

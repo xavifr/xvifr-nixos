@@ -31,7 +31,7 @@
         "vs-kubernetes" = {
           "vs-kubernetes.crd-code-completion" = "enabled";
         };
-        "terminal.external.linuxExec" = "ghostty";
+        "terminal.external.linuxExec" = "kitty";
         "terminal.integrated.defaultProfile.linux" = "fish";
         "editor.fontFamily" = "'Fira Code Symbol'";
         "editor.inlayHints.fontFamily" = "Fira Code SymbolSymbol";

@@ -59,6 +59,7 @@
     kdePackages.okular
     kdePackages.kate
     kdePackages.kcalc
+    kitty
 
     # allow to share files between devices using dolphin
     kdePackages.kdenetwork-filesharing

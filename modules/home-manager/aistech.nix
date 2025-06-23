@@ -8,6 +8,14 @@
     telegram-desktop
   ];
 
+  programs.ruff = {
+    enable = true;
+    settings = {
+    };
+  };
+
+  programs.uv.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Xavier Franquet";
@@ -33,7 +41,7 @@
 
         "editor.fontFamily" = "'Fira Code Symbol'";
 
-        "terminal.external.linuxExec" = "ghostty";
+        "terminal.external.linuxExec" = "kitty";
         "terminal.integrated.defaultProfile.linux" = "fish";
         "terminal.integrated.fontFamily" = "'Fira Code Symbol'";
         #"terminal.integrated.gpuAcceleration" = "canvas";

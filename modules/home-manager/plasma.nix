@@ -26,8 +26,8 @@ in
     enable = true;
 
     configFile.kdeglobals.General = {
-      TerminalApplication = "ghostty";
-      TerminalService = "com.mitchellh.ghostty.desktop";
+      TerminalApplication = "kitty";
+      TerminalService = "kitty.desktop";
     };
 
     # Workspace settings
@@ -73,7 +73,7 @@ in
 
     # Shortcuts
     shortcuts = {
-      "services/com.mitchellh.ghostty.desktop" = {
+      "services/kitty.desktop" = {
         "_launch" = [
           "Ctrl+Alt+T"
         ];

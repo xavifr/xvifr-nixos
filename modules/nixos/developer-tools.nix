@@ -18,7 +18,6 @@
       slack
       buf
       unstable.openbao
-      uv
       mypy
       postman
       kubernetes-helm
@@ -33,12 +32,14 @@
       mysql-workbench
     ];
 
-/*     services.pgadmin = {
-      enable = true;
-      initialEmail = "xavier.franquet@aistechspace.com";
-      initialPasswordFile = "/etc/nixos/secrets/pgadmin_password";
-      port = 5054;
-    }; */
+    /*
+      services.pgadmin = {
+         enable = true;
+         initialEmail = "xavier.franquet@aistechspace.com";
+         initialPasswordFile = "/etc/nixos/secrets/pgadmin_password";
+         port = 5054;
+       };
+    */
 
   };
 
