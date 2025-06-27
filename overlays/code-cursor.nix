@@ -6,9 +6,9 @@
   rsync,
 }:
 let
-  cursor_version = "1.0.0";
-  cursor_url = "https://downloads.cursor.com/production/979ba33804ac150108481c14e0b5cb970bda3266/linux/x64/Cursor-1.1.3-x86_64.AppImage";
-  cursor_sha256 = "mOwWNbKKykMaLFxfjaoGGrxfyhLX++fqJ0TXQtKVD8c=";
+  cursor_version = "1.1.6";
+  cursor_url = "https://downloads.cursor.com/production/5b19bac7a947f54e4caa3eb7e4c5fbf832389853/linux/x64/Cursor-1.1.6-x86_64.AppImage";
+  cursor_sha256 = "T0vJRs14tTfT2kqnrQWPFXVCIcULPIud1JEfzjqcEIM=";
 in
 oldAttrs: rec {
   pname = oldAttrs.pname;

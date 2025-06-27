@@ -9,7 +9,9 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6 = {
+    enable = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -59,6 +61,7 @@
     kdePackages.okular
     kdePackages.kate
     kdePackages.kcalc
+    kdePackages.powerdevil
     kitty
 
     # allow to share files between devices using dolphin
