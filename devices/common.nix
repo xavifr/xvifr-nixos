@@ -147,6 +147,7 @@
     killall
     ncdu
     dig
+    tail-tray
   ];
 
   programs.nh = {

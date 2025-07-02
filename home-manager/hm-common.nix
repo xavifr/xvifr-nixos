@@ -116,6 +116,8 @@
     keybindings = {
       "ctrl+backspace" = "text:\\x15";
     };
+    themeFile = "Monokai";
+
   };
 
   programs.fish = {

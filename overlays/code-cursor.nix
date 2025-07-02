@@ -6,9 +6,12 @@
   rsync,
 }:
 let
-  cursor_version = "1.1.6";
-  cursor_url = "https://downloads.cursor.com/production/5b19bac7a947f54e4caa3eb7e4c5fbf832389853/linux/x64/Cursor-1.1.6-x86_64.AppImage";
-  cursor_sha256 = "T0vJRs14tTfT2kqnrQWPFXVCIcULPIud1JEfzjqcEIM=";
+  #cursor_version = "1.1.7";
+  #cursor_url = "https://downloads.cursor.com/production/7111807980fa9c93aedd455ffa44b682c0dc1356/linux/x64/Cursor-1.1.7-x86_64.AppImage";
+  #cursor_sha256 = "kbTrxIxhkeOjrsn5fdsTj5MV+MuzZjmsayBqqtCqoeM=";
+  cursor_version = "1.2.0";
+  cursor_url = "https://downloads.cursor.com/production/eb5fa4768da0747b79dc34f0b79ab20dbf58202c/linux/x64/Cursor-1.2.0-x86_64.AppImage";
+  cursor_sha256 = "PPvVO4RERaBk2+MeG4GHI8kuYPmZI6gBYovOat/dT40=";
 in
 oldAttrs: rec {
   pname = oldAttrs.pname;
