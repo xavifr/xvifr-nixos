@@ -12,6 +12,7 @@
     ../common.nix
     outputs.nixosModules.plasma-desktop
     outputs.nixosModules.developer-tools
+    outputs.nixosModules.winbox
   ];
 
   # Bootloader.

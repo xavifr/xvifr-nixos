@@ -7,4 +7,5 @@
   agenix = import ./agenix.nix;
   unstable = import ./unstable.nix;
   developer-tools = import ./developer-tools.nix;
+  winbox = import ./winbox.nix;
 }
