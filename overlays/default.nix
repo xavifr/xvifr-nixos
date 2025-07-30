@@ -17,12 +17,12 @@
       # ...
       # });
 
-      code-cursor = prev.code-cursor.overrideAttrs (
-        import ./code-cursor.nix {
-          inherit lib stdenvNoCC;
-          inherit (prev) fetchurl appimageTools rsync;
-        }
-      );
+      # code-cursor = prev.code-cursor.overrideAttrs (
+      #   import ./code-cursor.nix {
+      #     inherit lib stdenvNoCC;
+      #     inherit (prev) fetchurl appimageTools rsync;
+      #   }
+      # );
 
       openssh-no-checkperm = prev.openssh.overrideAttrs (
         import ./ssh-no-perm.nix {

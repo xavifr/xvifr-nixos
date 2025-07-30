@@ -20,6 +20,10 @@
     enable = true;
     userName = "Xavier Franquet";
     userEmail = "xavier.franquet@aistechspace.com";
+    extraConfig = {
+      url."git@github.com:aistechspace/".insteadOf = [ "https://github.com/aistechspace/" ];
+      rerere.enabled = true;
+    };
   };
 
   programs.vscode = {
