@@ -30,6 +30,7 @@
 
       dbeaver-bin
       mysql-workbench
+      gnumake
     ];
 
     /*
