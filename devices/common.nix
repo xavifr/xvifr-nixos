@@ -140,6 +140,7 @@
 
   environment.systemPackages = with pkgs; [
     inputs.home-manager.packages.${pkgs.system}.default
+    cacert
     wget
     htop
     vim
@@ -178,7 +179,7 @@
   programs.fish = {
     enable = true;
     shellInit = "starship init fish | source";
-    
+
   };
 
   services.tailscale = {
