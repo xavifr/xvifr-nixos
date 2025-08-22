@@ -54,16 +54,27 @@
         "docker.extension.experimental.composeCompletions" = true;
       };
 
-      extensions = with pkgs.vscode-extensions; [
-        golang.go
-        matangover.mypy
-        redhat.vscode-yaml
-        charliermarsh.ruff
-        ms-python.python
-        eamodio.gitlens
-        ms-azuretools.vscode-docker
-        jnoortheen.nix-ide
-      ];
+      extensions =
+        with pkgs.vscode-extensions;
+        [
+          golang.go
+          matangover.mypy
+          redhat.vscode-yaml
+          charliermarsh.ruff
+          ms-python.python
+          eamodio.gitlens
+          ms-azuretools.vscode-docker
+          jnoortheen.nix-ide
+          ms-python.python
+        ]
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+            name = "gemini-cli-vscode-ide-companion";
+            publisher = "google";
+            version = "0.1.21";
+            sha256 = "sha256-ZWQEhxO2e9h3K2UbA2uWLL5WbndybsHTmSbaLvr9vIU=";
+          }
+        ];
     };
   };
 

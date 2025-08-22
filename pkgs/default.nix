@@ -6,4 +6,5 @@ pkgs: {
     vscode-generic = pkgs.path + "/pkgs/applications/editors/vscode/generic.nix";
   };
   gemini-cli = pkgs.callPackage ./gemini-cli.nix { };
+
 }
