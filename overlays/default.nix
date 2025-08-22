@@ -10,7 +10,7 @@
   modifications =
     final: prev:
     let
-      inherit (prev) lib stdenvNoCC;
+      inherit (prev) lib;
     in
     {
       # example = prev.example.overrideAttrs (oldAttrs: rec {
@@ -30,6 +30,13 @@
           patchFile = ../patches/openssh-no-checkperm.patch;
         }
       );
+
+      # gemini-cli overlay disabled; using custom package in pkgs instead
+      # gemini-cli = prev.gemini-cli.overrideAttrs (
+      #   import ./gemini-cli.nix {
+      #     inherit (prev) lib fetchurl fetchFromGitHub fetchNpmDeps;
+      #   }
+      # );
 
       #ghostty = prev.ghostty.overrideAttrs (
       #  import ./ghostty.nix {

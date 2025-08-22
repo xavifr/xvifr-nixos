@@ -6,6 +6,7 @@
 {
   home.packages = with pkgs; [
     telegram-desktop
+    gemini-cli
   ];
 
   programs.ruff = {
