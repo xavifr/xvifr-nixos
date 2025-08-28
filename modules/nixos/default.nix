@@ -5,7 +5,6 @@
   # my-module = import ./my-module.nix;
   plasma-desktop = import ./plasma-desktop.nix;
   agenix = import ./agenix.nix;
-  unstable = import ./unstable.nix;
   developer-tools = import ./developer-tools.nix;
   winbox = import ./winbox.nix;
 }

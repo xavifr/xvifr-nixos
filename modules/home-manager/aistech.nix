@@ -44,12 +44,17 @@
           "vs-kubernetes.crd-code-completion" = "enabled";
         };
 
-        "editor.fontFamily" = "'Fira Code Symbol'";
+        "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
+        "editor.fontWeight" = "Regular";
+        "editor.fontLigatures" = true;
+        "editor.fontSize" = 14;
 
         "terminal.external.linuxExec" = "kitty";
         "terminal.integrated.defaultProfile.linux" = "fish";
-        "terminal.integrated.fontFamily" = "'Fira Code Symbol'";
-        #"terminal.integrated.gpuAcceleration" = "canvas";
+        "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font'";
+        "terminal.integrated.fontWeight" = "Regular";
+        "terminal.integrated.fontLigatures" = true;
+        "terminal.integrated.fontSize" = 14;
 
         "docker.extension.experimental.composeCompletions" = true;
       };

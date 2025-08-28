@@ -157,8 +157,12 @@
   };
 
   fonts.packages = with pkgs; [
+    jetbrains-mono
     fira-code
     fira-code-symbols
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.ubuntu
   ];
 
   home-manager = {
@@ -178,8 +182,23 @@
 
   programs.fish = {
     enable = true;
-    shellInit = "starship init fish | source";
+    shellInit = "
+      starship init fish | source
+      function ns
+        nix shell nixpkgs#$argv
+      end
 
+      function nsu
+        nix shell nixpkgs-unstable#$argv
+      end
+
+      function nsm
+        nix shell nixpkgs-master#$argv
+      end
+    ";
+    shellAliases = {
+      nix-shell = "nix-shell --command 'fish'";
+    };
   };
 
   services.tailscale = {
