@@ -91,6 +91,13 @@
         success_symbol = "[](bold green) ";
         error_symbol = "[✗](bold red) ";
       };
+
+      nix_shell = {
+        heuristic = false;
+        format = "[[ $symbol $name ](fg:#769ff0 bg:#1d2230)]($style)";
+        symbol = "";
+        style = "bg:#1d2230";
+      };
     };
   };
 

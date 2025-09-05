@@ -79,6 +79,12 @@
             version = "0.1.21";
             sha256 = "sha256-ZWQEhxO2e9h3K2UbA2uWLL5WbndybsHTmSbaLvr9vIU=";
           }
+          {
+            name = "vscode-coverage-gutters";
+            publisher = "ryanluker";
+            version = "2.14.0";
+            sha256 = "sha256-waF3FmncUsXqWFWGRy9X7RQ29BDRYlaqyFhEXg4HXNo=";
+          }
         ];
     };
   };
