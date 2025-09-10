@@ -124,7 +124,10 @@
       "ctrl+backspace" = "text:\\x15";
     };
     themeFile = "Monokai";
-
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 14;
+    };
   };
 
   programs.fish = {

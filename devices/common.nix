@@ -199,6 +199,8 @@
     shellAliases = {
       nix-shell = "nix-shell --command 'fish'";
       g = "git";
+
+      gd = "git diff";
       
       ga = "git add";
       gaa = "git add --all";
