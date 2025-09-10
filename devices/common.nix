@@ -205,7 +205,7 @@
       ga = "git add";
       gaa = "git add --all";
       
-      gp = "git push";
+      gpu = "git push";
       gpf = "git push --force-with-lease";
       gup = "git pull --rebase";
 
