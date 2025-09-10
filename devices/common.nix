@@ -198,6 +198,30 @@
     ";
     shellAliases = {
       nix-shell = "nix-shell --command 'fish'";
+      g = "git";
+      
+      ga = "git add";
+      gaa = "git add --all";
+      
+      gp = "git push";
+      gpf = "git push --force-with-lease";
+      gup = "git pull --rebase";
+
+      gc = "git commit";
+      gcm = "git commit -m";
+      gco = "git checkout";
+      gcb = "git checkout -b";
+      
+      gs = "git status -s";
+      gl = "git log --oneline --graph --decorate";
+      
+      gst = "git stash";
+      gsp = "git stash pop";
+           
+      k = "kubectl";
+      kc = "kubectl";
+      kd = "kubectl describe";
+      kf = "kubectl get pods -o wide";    
     };
   };
 

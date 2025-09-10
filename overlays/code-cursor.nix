@@ -8,9 +8,9 @@
 oldAttrs:
 let
   # Set these to override; keep as null to preserve existing values
-  overrideUrl = "https://downloads.cursor.com/production/99e3b1b4d8796e167e72823eadc66ac2d51fd40c/linux/x64/Cursor-1.5.1-x86_64.AppImage";
-  overrideHash = "sha256-1gLVVZPHs38LCE/l1XcGv6VyZ11oKQQNw8EU3MAjQ1I=";
-  overrideVersion = "1.5.1";
+  overrideUrl = "https://downloads.cursor.com/production/2f2737de9aa376933d975ae30290447c910fdf46/linux/x64/Cursor-1.5.11-x86_64.AppImage";
+  overrideHash = "sha256-PlZPgcDe6KmEcQYDk1R4uXh1R34mKuPLBh/wbOAYrAY=";
+  overrideVersion = "1.5.11";
   overridePname = oldAttrs.pname;
 in
 # Only override when both URL and hash are provided
