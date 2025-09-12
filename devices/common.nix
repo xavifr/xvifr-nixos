@@ -96,6 +96,12 @@
         group = "users";
         mode = "0600";
       };
+      secret_github_aistechspace_runner = {
+        file = ../secrets/secret_github_aistechspace_runner.age;
+        owner = "xavier";
+        group = "users";
+        mode = "0600";
+      };
     };
   };
 

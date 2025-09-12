@@ -57,6 +57,7 @@
         "terminal.integrated.fontSize" = 14;
 
         "docker.extension.experimental.composeCompletions" = true;
+        "terminal.integrated.commandsToSkipShell" = [ "-cursorai.action.generateInTerminal" ];
       };
 
       extensions =
