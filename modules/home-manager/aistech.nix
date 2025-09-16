@@ -72,6 +72,7 @@
           ms-azuretools.vscode-docker
           jnoortheen.nix-ide
           ms-python.python
+          github.vscode-github-actions
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
