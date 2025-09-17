@@ -47,6 +47,8 @@
       name = "aistechspace-runner-at-xvi";
       tokenFile = config.age.secrets.secret_github_aistechspace_runner.path;
       url = "https://github.com/aistechspace";
+      noDefaultLabels = true;
+      extraLabels = ["Linux" "X64"];
     };    
 
   };
