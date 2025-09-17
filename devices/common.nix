@@ -209,7 +209,7 @@
       gd = "git diff";
       
       ga = "git add";
-      gaa = "git add --all";
+      gaa = "git add --update";
       
       gpu = "git push";
       gpf = "git push --force-with-lease";
