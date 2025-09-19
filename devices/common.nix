@@ -207,10 +207,10 @@
       g = "git";
 
       gd = "git diff";
-      
+
       ga = "git add";
       gaa = "git add --update";
-      
+
       gpu = "git push";
       gpf = "git push --force-with-lease";
       gup = "git pull --rebase";
@@ -219,17 +219,19 @@
       gcm = "git commit -m";
       gco = "git checkout";
       gcb = "git checkout -b";
-      
+
       gs = "git status -s";
       gl = "git log --oneline --graph --decorate";
-      
+
       gst = "git stash";
       gsp = "git stash pop";
-           
+
       k = "kubectl";
       kc = "kubectl";
       kd = "kubectl describe";
-      kf = "kubectl get pods -o wide";    
+      kf = "kubectl get pods -o wide";
+
+      nd = "nix develop";
     };
   };
 

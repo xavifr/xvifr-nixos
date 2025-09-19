@@ -48,7 +48,7 @@
       tokenFile = config.age.secrets.secret_github_aistechspace_runner.path;
       url = "https://github.com/aistechspace";
       noDefaultLabels = true;
-      extraLabels = ["Linux" "X64"];
+      extraLabels = ["Linux" "X64" "ubuntu-20.04" "ubuntu-22.04" "ubuntu-latest" ];
     };    
 
   };
