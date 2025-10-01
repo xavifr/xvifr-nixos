@@ -58,6 +58,7 @@
 
         "docker.extension.experimental.composeCompletions" = true;
         "terminal.integrated.commandsToSkipShell" = [ "-cursorai.action.generateInTerminal" ];
+        "remote.SSH.useLocalServer" = false;
       };
 
       extensions =
@@ -114,6 +115,20 @@
         IdentityFile ${secrets.secret_xvi_ssh_key.path}
         User git
         Port 22
+
+      Host 192.168.14.254
+        AddKeysToAgent no
+        IdentityAgent none
+        IdentityFile ${secrets.secret_xvi_ssh_key.path}
+        User xavier
+        Port 1179
+
+      Host 192.168.14.21
+        AddKeysToAgent no
+        IdentityAgent none
+        IdentityFile ${secrets.secret_xvi_ssh_key.path}
+        User xavier
+        
     '';
   };
 

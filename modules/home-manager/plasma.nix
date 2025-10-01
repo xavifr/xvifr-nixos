@@ -223,6 +223,7 @@ in
 
   # Additional packages for Plasma
   home.packages = with pkgs; [
+    xdg-desktop-portal-wlr
     nil
   ];
 
