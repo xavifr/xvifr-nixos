@@ -59,7 +59,17 @@
         "docker.extension.experimental.composeCompletions" = true;
         "terminal.integrated.commandsToSkipShell" = [ "-cursorai.action.generateInTerminal" ];
         "remote.SSH.useLocalServer" = false;
-      };
+        "[dockercompose]" = {
+          "editor.insertSpaces" = true;
+          "editor.tabSize" = 2;
+          "editor.autoIndent" = "advanced";
+          "editor.quickSuggestions" = {
+            "other" = true;
+            "comments" = false;
+            "strings" = true;
+          };
+          "editor.defaultFormatter" = "redhat.vscode-yaml";
+        };
 
       extensions =
         with pkgs.vscode-extensions;

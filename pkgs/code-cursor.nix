@@ -16,8 +16,8 @@ let
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/adb0f9e3e4f184bba7f3fa6dbfd72ad0ebb8cfd8/linux/x64/Cursor-1.7.28-x86_64.AppImage";
-      hash = "sha256-ZB/xGGKyVnfmNASWtfkmoxvzzkXa2pUlmgY2Bb9f5lU=";
+      url = "https://downloads.cursor.com/production/1910e1fc4fa41b809793f6c5477108b775c0a12e/linux/arm64/Cursor-1.7.37-aarch64.AppImage";
+      hash = "sha256-RTuD89s9m67aZyipyXvJArJlUNOa6BkAcfcd3Lkiyxs=";
     };
   };
 
@@ -27,7 +27,7 @@ in
   inherit useVSCodeRipgrep;
   commandLineArgs = finalCommandLineArgs;
 
-  version = "1.7.28";
+  version = "1.7.37";
   pname = "cursor";
 
   # You can find the current VSCode version in the About dialog:

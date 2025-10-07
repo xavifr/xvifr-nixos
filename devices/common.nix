@@ -227,7 +227,9 @@
       gsp = "git stash pop";
 
       k = "kubectl";
-      kc = "kubectl";
+      kgc = "kubectl config get-contexts";
+      ksc = "kubectl config use-context";
+
       kd = "kubectl describe";
       kf = "kubectl get pods -o wide";
 
