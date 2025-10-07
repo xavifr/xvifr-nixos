@@ -70,6 +70,7 @@
           };
           "editor.defaultFormatter" = "redhat.vscode-yaml";
         };
+      };
 
       extensions =
         with pkgs.vscode-extensions;
