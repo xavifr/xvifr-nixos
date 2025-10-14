@@ -142,7 +142,15 @@
   programs.ssh.startAgent = true;
 
   # Enable docker system-wide for all devices
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    # ... other options
+    daemon.settings = {
+      # This explicitly sets the cgroup driver to systemd,
+      # which is crucial for cgroup delegation to work.
+      "exec-opts" = [ "native.cgroupdriver=systemd" ];
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     inputs.home-manager.packages.${pkgs.system}.default
@@ -222,6 +230,7 @@
 
       gs = "git status -s";
       gl = "git log --oneline --graph --decorate";
+      gll = "git log --graph --decorate";
 
       gst = "git stash";
       gsp = "git stash pop";
