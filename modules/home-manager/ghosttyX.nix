@@ -12,7 +12,7 @@ let
   ghosttyFlake = builtins.getFlake "github:ghostty-org/ghostty/76a3612195bb3d67e67a1e824fb3cbdb4d339735";
 
   # Get the package from the flake
-  ghosttyPackage = ghosttyFlake.packages.${pkgs.system}.default;
+  ghosttyPackage = ghosttyFlake.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   options.programs.ghosttyX = {

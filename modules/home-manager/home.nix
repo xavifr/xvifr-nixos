@@ -11,8 +11,12 @@
 
   programs.git = {
     enable = true;
-    userName = "Xavier Franquet";
-    userEmail = "xavier@franquet.es";
+    settings = {
+      user = {
+        name = "Xavier Franquet";
+        email = "xavier@franquet.es";
+      };
+    };
   };
 
   programs.vscode = {
@@ -54,26 +58,31 @@
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host github.com
-        Hostname github.com
-        IdentityFile ${secrets.secret_xvi_ssh_key.path}
-        User git
-        Port 22
-
-      Host as.bitbucket.org
-        Hostname github.com
-        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
-        User git
-        Port 22
-
-      Host as.github.com
-        AddKeysToAgent no
-        Hostname github.com
-        IdentityFile ${secrets.secret_as-xvi_ssh_key.path}
-        User git
-        Port 22
-    '';
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        addKeysToAgent = "yes";
+      };
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = secrets.secret_xvi_ssh_key.path;
+        user = "git";
+        port = 22;
+      };
+      "as.bitbucket.org" = {
+        hostname = "github.com";
+        identityFile = secrets.secret_as-xvi_ssh_key.path;
+        user = "git";
+        port = 22;
+      };
+      "as.github.com" = {
+        addKeysToAgent = "no";
+        hostname = "github.com";
+        identityFile = secrets.secret_as-xvi_ssh_key.path;
+        user = "git";
+        port = 22;
+      };
+    };
   };
 
   services.ssh-agent.enable = true;

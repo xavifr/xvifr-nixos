@@ -19,11 +19,11 @@ let
       inherit self;
       nixpkgs = {
         lib = pkgs.lib;
-        legacyPackages.${pkgs.system} = pkgs;
+        legacyPackages.${pkgs.stdenv.hostPlatform.system} = pkgs;
       };
     }
   );
 in
 {
-  home.packages = [ upingOutputs.packages.${pkgs.system}.default ];
+  home.packages = [ upingOutputs.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 }
