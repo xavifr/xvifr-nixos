@@ -12,12 +12,12 @@
 
 let
   inherit (stdenv) hostPlatform;
-  finalCommandLineArgs = commandLineArgs;
+  finalCommandLineArgs = "--update=false " + commandLineArgs;
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/9675251a06b1314d50ff34b0cbe5109b78f848cd/linux/x64/Cursor-1.7.52-x86_64.AppImage";
-      hash = "sha256-nhDDdXE5/m9uASiQUJ4GHfApkzkf9ju5b8s0h6BhpjQ=";
+      url = "https://downloads.cursor.com/production/1685afce45886aa5579025ac7e077fc3d4369c52/linux/x64/Cursor-2.2.14-x86_64.AppImage";
+      hash = "sha256-L4kzRm08rWbb05VNX5RHyPaL3Ij6UCzQDoLaahIGYbI=";
     };
   };
 
@@ -27,12 +27,12 @@ in
   inherit useVSCodeRipgrep;
   commandLineArgs = finalCommandLineArgs;
 
-  version = "1.7.52";
+  version = "2.2.14";
   pname = "cursor";
 
   # You can find the current VSCode version in the About dialog:
   # workbench.action.showAboutDialog (Help: About)
-  vscodeVersion = "1.99.3";
+  vscodeVersion = "1.105.1";
 
   executableName = "cursor";
   longName = "Cursor";
@@ -85,13 +85,6 @@ in
   (oldAttrs: {
     nativeBuildInputs =
       (oldAttrs.nativeBuildInputs or [ ]) ++ lib.optionals hostPlatform.isDarwin [ undmg ];
-
-    # preInstall =
-    #   (oldAttrs.preInstall or "")
-    #   + lib.optionalString hostPlatform.isLinux ''
-    #     mkdir -p bin
-    #     ln -s ../cursor bin/cursor
-    #   '';
 
     passthru = (oldAttrs.passthru or { }) // {
       inherit sources;
