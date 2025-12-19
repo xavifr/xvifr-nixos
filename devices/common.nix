@@ -227,6 +227,7 @@
       gcm = "git commit -m";
       gco = "git checkout";
       gcb = "git checkout -b";
+      gsw = "git switch";
 
       gs = "git status -s";
       gl = "git log --oneline --graph --decorate";

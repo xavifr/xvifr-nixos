@@ -62,6 +62,7 @@
     kdePackages.kate
     kdePackages.kcalc
     kdePackages.powerdevil
+    kdePackages.krdc
     kitty
 
     # allow to share files between devices using dolphin

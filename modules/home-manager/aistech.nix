@@ -87,13 +87,14 @@
           jnoortheen.nix-ide
           ms-python.python
           github.vscode-github-actions
+          #google.gemini-cli-vscode-ide-companion
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
             name = "gemini-cli-vscode-ide-companion";
             publisher = "google";
-            version = "0.1.21";
-            sha256 = "sha256-ZWQEhxO2e9h3K2UbA2uWLL5WbndybsHTmSbaLvr9vIU=";
+            version = "0.20.0";
+            sha256 = "sha256-gJ7ghOOrk4kvzReqfB6ZRhFonOdpJXcPh7voBgCwqPg=";
           }
           {
             name = "vscode-coverage-gutters";

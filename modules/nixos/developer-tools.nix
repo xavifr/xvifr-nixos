@@ -22,6 +22,7 @@
       postman
       kubernetes-helm
       go
+      gcc
       jq
       opentofu
       k9s
