@@ -17,7 +17,7 @@
       vscode
       slack
       buf
-      #openbao
+      openbao
       mypy
       postman
       kubernetes-helm
