@@ -30,6 +30,7 @@
         }
       );
 
+
       # gemini-cli overlay disabled; using custom package in pkgs instead
       # gemini-cli = prev.gemini-cli.overrideAttrs (
       #   import ./gemini-cli.nix {
