@@ -18,6 +18,7 @@
       slack
       buf
       openbao
+      delve
       mypy
       postman
       kubernetes-helm

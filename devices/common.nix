@@ -212,6 +212,7 @@
     ";
     shellAliases = {
       nix-shell = "nix-shell --command 'fish'";
+
       g = "git";
 
       gd = "git diff";
@@ -225,9 +226,10 @@
 
       gc = "git commit";
       gcm = "git commit -m";
-      gco = "git checkout";
-      gcb = "git checkout -b";
+      gca = "git commit --amend";
+
       gsw = "git switch";
+      gr = "git restore";
 
       gs = "git status -s";
       gl = "git log --oneline --graph --decorate";
@@ -242,6 +244,8 @@
 
       kd = "kubectl describe";
       kf = "kubectl get pods -o wide";
+
+      kk = "kubectl kustomize";
 
       nd = "nix develop";
     };
