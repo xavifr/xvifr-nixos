@@ -247,6 +247,12 @@
 
       kk = "kubectl kustomize";
 
+      tg = "terragrunt";
+      tgi = "terragrunt init";
+      tgp = "terragrunt plan";
+      tga = "terragrunt apply";
+      tgaf = "terragrunt apply --auto-approve";
+
       nd = "nix develop";
     };
   };
