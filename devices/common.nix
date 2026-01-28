@@ -72,6 +72,7 @@
         "networkmanager"
         "docker"
         "samba"
+        "dialout"
       ];
     };
   };
