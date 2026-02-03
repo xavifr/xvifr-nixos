@@ -20,7 +20,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelParams = [
+    # This is the correct parameter name for modern AMD drivers
+    "amdgpu.gpu_recovery=1"
+    "amdgpu.dcdebugmask=0x10"
+    # Try this alternative specific to the Display Core (DC)
+    "amdgpu.dc_feature_mask=0x2"
+  ];
 
   boot.initrd.luks.devices."luks-48d13175-9b4b-41cf-b7b3-0268ae7e13c8".device =
     "/dev/disk/by-uuid/48d13175-9b4b-41cf-b7b3-0268ae7e13c8";
