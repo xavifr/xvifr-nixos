@@ -22,7 +22,7 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-
+      outputs.overlays.master-packages
     ];
 
     # Configure your nixpkgs instance
@@ -44,6 +44,13 @@
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         nix-path = config.nix.nixPath;
+        # Enable binary cache for faster builds
+        substituters = [
+          "https://cache.nixos.org/"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        ];
       };
       channel.enable = true;
 

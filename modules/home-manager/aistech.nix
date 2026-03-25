@@ -5,7 +5,7 @@
 }:
 {
   home.packages = with pkgs; [
-    telegram-desktop
+    unstable.telegram-desktop
     gemini-cli
   ];
 

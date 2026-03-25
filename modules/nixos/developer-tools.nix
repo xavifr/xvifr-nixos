@@ -34,6 +34,7 @@
       dbeaver-bin
       mysql-workbench
       gnumake
+
     ];
 
     /*
@@ -45,8 +46,14 @@
        };
     */
 
-    services.github-runners.aistechspace = {
+    programs.direnv = {
       enable = true;
+      enableFishIntegration = true;
+      loadInNixShell = true;
+    };    
+
+    services.github-runners.aistechspace = {
+      enable = false;
       name = "aistechspace-runner-at-xvi";
       tokenFile = config.age.secrets.secret_github_aistechspace_runner.path;
       url = "https://github.com/aistechspace";

@@ -20,6 +20,7 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      outputs.overlays.master-packages
 
       # Or define it inline, for example:
       # (final: prev: {

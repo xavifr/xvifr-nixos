@@ -30,7 +30,6 @@
         }
       );
 
-
       # gemini-cli overlay disabled; using custom package in pkgs instead
       # gemini-cli = prev.gemini-cli.overrideAttrs (
       #   import ./gemini-cli.nix {
@@ -53,6 +52,9 @@
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
     };
+  };
+
+  master-packages = final: _prev: {
     master = import inputs.nixpkgs-master {
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
