@@ -50,7 +50,15 @@
       enable = true;
       enableFishIntegration = true;
       loadInNixShell = true;
-    };    
+      settings = {
+        whitelist = {
+          prefix = [
+            "~/Projects"
+            "~/code"
+          ];
+        };
+      };
+    };
 
     services.github-runners.aistechspace = {
       enable = false;
