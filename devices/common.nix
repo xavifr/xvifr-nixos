@@ -207,15 +207,15 @@
     shellInit = "
       starship init fish | source
       function ns
-        nix shell --impure nixpkgs#$argv
+        NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs#$argv
       end
 
       function nsu
-        nix shell --impure nixpkgs-unstable#$argv
+        NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs-unstable#$argv
       end
 
       function nsm
-        nix shell --impure nixpkgs-master#$argv
+        NIXPKGS_ALLOW_INSECURE=1 nix shell --impure nixpkgs-master#$argv
       end
     ";
     shellAliases = {
