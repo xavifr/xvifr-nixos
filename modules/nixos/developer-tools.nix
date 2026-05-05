@@ -14,6 +14,7 @@
   config = lib.mkIf config.modules.developer-tools.enable {
     environment.systemPackages = with pkgs; [
       code-cursor
+      #anycubic-slicer
       vscode
       slack
       buf
@@ -28,6 +29,7 @@
       opentofu
       terragrunt
       k9s
+      k3d
       kubectl
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
 

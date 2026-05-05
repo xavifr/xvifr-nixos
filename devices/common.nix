@@ -229,6 +229,7 @@
       gaa = "git add --update";
 
       gpu = "git push";
+      gpuu = "git push --set-upstream origin $(git branch --show-current)";
       gpf = "git push --force-with-lease";
       gup = "git pull --rebase";
 
@@ -259,7 +260,10 @@
       tgi = "terragrunt init";
       tgp = "terragrunt plan";
       tga = "terragrunt apply";
-      tgaf = "terragrunt apply --auto-approve";
+
+      tgai = "terragrunt run-all init";
+      tgap = "terragrunt run-all plan";
+      tgaa = "terragrunt run-all apply";
 
       nd = "nix develop";
     };

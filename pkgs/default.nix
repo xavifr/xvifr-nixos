@@ -5,6 +5,7 @@ pkgs: {
   code-cursor = pkgs.callPackage ./code-cursor.nix {
     vscode-generic = pkgs.path + "/pkgs/applications/editors/vscode/generic.nix";
   };
+  #  anycubic-slicer = pkgs.callPackage ./anycubic-slicer.nix { };
   gemini-cli = pkgs.callPackage ./gemini-cli.nix { };
 
 }
