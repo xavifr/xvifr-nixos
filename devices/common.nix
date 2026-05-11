@@ -256,14 +256,19 @@
 
       kk = "kubectl kustomize";
 
+      tf = "tofu";
+      tfi = "tofu init";
+      tfp = "tofu plan";
+      tfa = "tofu apply";
+
       tg = "terragrunt";
       tgi = "terragrunt init";
       tgp = "terragrunt plan";
       tga = "terragrunt apply";
 
-      tgai = "terragrunt run-all init";
-      tgap = "terragrunt run-all plan";
-      tgaa = "terragrunt run-all apply";
+      tgai = "terragrunt run --all init";
+      tgap = "terragrunt run --all plan";
+      tgaa = "terragrunt run --all apply";
 
       nd = "nix develop";
     };
