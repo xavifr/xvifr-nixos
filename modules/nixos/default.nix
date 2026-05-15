@@ -7,4 +7,5 @@
   agenix = import ./agenix.nix;
   developer-tools = import ./developer-tools.nix;
   winbox = import ./winbox.nix;
+  aistech = import ./aistech.nix;
 }

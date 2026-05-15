@@ -55,6 +55,19 @@
   # networking.interfaces.enp5s0f3u1u4c2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
+  networking.firewall.allowedTCPPorts = [
+    8443
+    8080
+    8843
+    6789
+  ];
+  networking.firewall.allowedUDPPorts = [
+    3478
+    10001
+    1900
+    5514
+  ];
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

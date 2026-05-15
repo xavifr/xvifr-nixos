@@ -13,6 +13,7 @@
     outputs.nixosModules.plasma-desktop
     outputs.nixosModules.developer-tools
     outputs.nixosModules.winbox
+    outputs.nixosModules.aistech
   ];
 
   # Bootloader.
