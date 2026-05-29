@@ -29,7 +29,14 @@
     # Try this alternative specific to the Display Core (DC)
     "amdgpu.dc_feature_mask=0x2"
     "mem_sleep_default=deep"
+
+    # Enable IOMMU for better security and performance
+    "amd_iommu=on" 
+
   ];
+  
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   boot.initrd.luks.devices."luks-48d13175-9b4b-41cf-b7b3-0268ae7e13c8".device =
     "/dev/disk/by-uuid/48d13175-9b4b-41cf-b7b3-0268ae7e13c8";
