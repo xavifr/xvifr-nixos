@@ -72,6 +72,8 @@
           };
           "editor.defaultFormatter" = "redhat.vscode-yaml";
         };
+        "git.confirmSync" = false;
+        "git.replaceTagsWhenPull" = true;
       };
 
       extensions =
