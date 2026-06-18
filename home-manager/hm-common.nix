@@ -23,6 +23,7 @@
       "nngceckbapebfimnlniiiahkandclblb" # bitwarden
       "haipckejfdppjfblgondaakgckohcihp" # milk cookie manager
       "eifflpmocdbdmepbjaopkkhbfmdgijcc" # JSON Viewer Pro
+      "callobklhcbilhphinckomhgkigmfocg" # Endpoint verification
       # "cimiefiiaegbelhefglklhhakcgmhkai" # plasma integration
     ];
   };

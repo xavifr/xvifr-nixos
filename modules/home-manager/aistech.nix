@@ -89,15 +89,10 @@
           jnoortheen.nix-ide
           ms-python.python
           github.vscode-github-actions
+          vscode-extension-anthropic-claude-code
           #google.gemini-cli-vscode-ide-companion
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "gemini-cli-vscode-ide-companion";
-            publisher = "google";
-            version = "0.20.0";
-            sha256 = "sha256-gJ7ghOOrk4kvzReqfB6ZRhFonOdpJXcPh7voBgCwqPg=";
-          }
           {
             name = "vscode-coverage-gutters";
             publisher = "ryanluker";
