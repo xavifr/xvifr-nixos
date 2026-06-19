@@ -12,8 +12,8 @@ let
 
   # Fetch plasma-manager
   plasma-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/plasma-manager/archive/b7697abe89967839b273a863a3805345ea54ab56.tar.gz";
-    sha256 = "05gw226063jbklfgcyr01a04278v7shn8a4imjg47rdzgsqf68fn";
+    url = "https://github.com/nix-community/plasma-manager/archive/a524a6160e6df89f7673ba293cf7d78b559eb1a5.tar.gz";
+    sha256 = "0ddrh3ply4jxkzg5961f6f9p5h1ivwqswy3b01wwgn5azzn2kcvg";
   };
 in
 {

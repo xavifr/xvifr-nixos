@@ -1,8 +1,7 @@
 {
   lib,
   stdenv,
-  callPackage,
-  vscode-generic,
+  buildVscode,
   fetchurl,
   appimageTools,
   undmg,
@@ -12,28 +11,28 @@
 
 let
   inherit (stdenv) hostPlatform;
-  finalCommandLineArgs = "--update=false " + commandLineArgs;
+
+  version = "3.8.11";
+  vscodeVersion = "1.105.1";
 
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://downloads.cursor.com/production/e48ee6102a199492b0c9964699bf011886708ba3/linux/x64/Cursor-3.7.27-x86_64.AppImage";
-      hash = "sha256-Vl8fvq5eBIM4HB3V0RnutjEJQDIEYPt0OhZMdEhxPbk=";
+      url = "https://downloads.cursor.com/production/e56ad3440df06d22ca7501e65fd518e905486ef7/linux/x64/Cursor-3.8.11-x86_64.AppImage";
+      hash = "sha256-kUPaGE2QdXS6ehJw5xxW2byixntUpSh6/R8wX3ih050=";
     };
   };
 
-
   source = sources.${hostPlatform.system};
 in
-(callPackage vscode-generic rec {
-  inherit useVSCodeRipgrep;
-  commandLineArgs = finalCommandLineArgs;
+(buildVscode rec {
+  inherit
+    commandLineArgs
+    useVSCodeRipgrep
+    version
+    vscodeVersion
+    ;
 
-  version = "3.7.27";
   pname = "cursor";
-
-  # You can find the current VSCode version in the About dialog:
-  # workbench.action.showAboutDialog (Help: About)
-  vscodeVersion = "1.105.1";
 
   executableName = "cursor";
   longName = "Cursor";
@@ -50,6 +49,9 @@ in
     else
       source;
 
+  # for unpacking the DMG
+  extraNativeBuildInputs = lib.optionals hostPlatform.isDarwin [ undmg ];
+
   sourceRoot =
     if hostPlatform.isLinux then "${pname}-${version}-extracted/usr/share/cursor" else "Cursor.app";
 
@@ -57,12 +59,7 @@ in
 
   updateScript = ./update.sh;
 
-  # Editing the `cursor` binary within the app bundle causes the bundle's signature
-  # to be invalidated, which prevents launching starting with macOS Ventura, because Cursor is notarized.
-  # See https://eclecticlight.co/2022/06/17/app-security-changes-coming-in-ventura/ for more information.
   dontFixup = stdenv.hostPlatform.isDarwin;
-
-  # Cursor has no wrapper script.
   patchVSCodePath = false;
 
   meta = {
@@ -70,7 +67,7 @@ in
     homepage = "https://cursor.com";
     changelog = "https://cursor.com/changelog";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = with lib.maintainers; [
       aspauldingcode
       prince213
@@ -84,13 +81,10 @@ in
   };
 }).overrideAttrs
   (oldAttrs: {
-    nativeBuildInputs =
-      (oldAttrs.nativeBuildInputs or [ ]) ++ lib.optionals hostPlatform.isDarwin [ undmg ];
-
     autoPatchelfIgnoreMissingDeps =
       (oldAttrs.autoPatchelfIgnoreMissingDeps or [ ])
-      ++ lib.optionals (hostPlatform.isLinux && !hostPlatform.isMusl) [
-        "libc.musl-*.so.*" # musl-based node modules are not used on glibc systems
+      ++ lib.optionals (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isMusl) [
+        "libc.musl-*.so.*"
       ];
 
     passthru = (oldAttrs.passthru or { }) // {

@@ -5,7 +5,7 @@
 }:
 {
   home.packages = with pkgs; [
-    unstable.telegram-desktop
+    telegram-desktop
     gemini-cli
   ];
 
@@ -30,7 +30,7 @@
   };
 
   programs.vscode = {
-    enable = true;
+    enable = true; # Temporarily disabled due to incompatibility
     package = pkgs.code-cursor;
     profiles.default = {
       userSettings = {
@@ -89,7 +89,7 @@
           jnoortheen.nix-ide
           ms-python.python
           github.vscode-github-actions
-          vscode-extension-anthropic-claude-code
+          anthropic.claude-code
           #google.gemini-cli-vscode-ide-companion
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
