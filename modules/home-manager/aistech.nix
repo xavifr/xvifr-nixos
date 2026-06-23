@@ -1,6 +1,7 @@
 {
   pkgs,
   secrets,
+  inputs,
   ...
 }:
 {
@@ -27,6 +28,11 @@
       url."git@github.com:aistechspace/".insteadOf = [ "https://github.com/aistechspace/" ];
       rerere.enabled = true;
     };
+  };
+
+  programs.claude-code = {
+    enable = true;
+    package = inputs.sadjow-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   programs.vscode = {

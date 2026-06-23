@@ -14,7 +14,6 @@
   config = lib.mkIf config.modules.developer-tools.enable {
     environment.systemPackages = with pkgs; [
       code-cursor
-      claude-code
       #anycubic-slicer
       vscode
       slack

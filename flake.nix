@@ -15,6 +15,9 @@
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    # Claude Code updated
+    sadjow-claude-code.url = "github:sadjow/claude-code-nix";
+    sadjow-claude-code.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
