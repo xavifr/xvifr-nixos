@@ -63,6 +63,12 @@
     kdePackages.kcalc
     kdePackages.powerdevil
     kdePackages.krdc
+
+    # Calendar sync
+    kdePackages.kdepim-addons
+    kdePackages.merkuro
+    kdePackages.akonadi-calendar
+
     kitty
 
     # allow to share files between devices using dolphin
@@ -76,4 +82,8 @@
 
   services.flatpak.enable = true;
 
+  programs.kde-pim = {
+    enable = true;
+    merkuro = true; # Explicitly ties Merkuro data to the system services
+  };
 }

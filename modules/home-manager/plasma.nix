@@ -121,6 +121,7 @@ in
             name = "org.kde.plasma.digitalclock";
             config = {
               Appearance = {
+                enabledCalendarPlugins = "pimevents";
                 firstDayOfWeek = "monday";
                 showWeekNumbers = true;
                 showSeconds = "Always";
@@ -163,6 +164,7 @@ in
             name = "org.kde.plasma.digitalclock";
             config = {
               Appearance = {
+                enabledCalendarPlugins = "pimevents";
                 firstDayOfWeek = "monday";
                 showWeekNumbers = true;
                 showSeconds = "Always";
@@ -205,6 +207,7 @@ in
             name = "org.kde.plasma.digitalclock";
             config = {
               Appearance = {
+                enabledCalendarPlugins = "pimevents";
                 firstDayOfWeek = "monday";
                 showWeekNumbers = true;
                 showSeconds = "Always";
