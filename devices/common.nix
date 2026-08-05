@@ -31,7 +31,6 @@
       allowUnfree = true;
       # Allow insecure packages needed by some applications
       permittedInsecurePackages = [
-        "electron-39.8.10"  # Required by code-cursor from unstable
       ];
     };
   };

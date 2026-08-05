@@ -37,7 +37,7 @@
 
   programs.vscode = {
     enable = true; # Temporarily disabled due to incompatibility
-    package = pkgs.code-cursor;
+    package = pkgs.vscode;
     profiles.default = {
       userSettings = {
         "editor.cursorBlinking" = "smooth";

@@ -14,6 +14,7 @@
     outputs.nixosModules.developer-tools
     outputs.nixosModules.winbox
     outputs.nixosModules.aistech
+    outputs.nixosModules.ninjaone
   ];
 
   # Bootloader.
@@ -61,6 +62,17 @@
   services.hardware.bolt.enable = true;
 
   modules.developer-tools.enable = true;
+
+  services.ninjaone-container = {
+    enable = true;
+    # Generic installer -- no org token embedded, auto-approved by your
+    # NinjaOne supervisor agent, so no clientUIDFile needed.
+    installerDeb = pkgs.fetchurl {
+      url = "https://eu.ninjarmm.com/ws/api/v2/generic-installer/NinjaOneAgent-x86_64.deb";
+      hash = "sha256-5nudgTaop3tmPZ7eDl1B+Z3ekDSiyhelAz3/A3QTnwE=";
+    };
+    baseUrl = "https://eu.ninjarmm.com";
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
