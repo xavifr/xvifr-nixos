@@ -13,7 +13,7 @@
 
   home.packages = with pkgs; [
     bitwarden-desktop
-    nixfmt-rfc-style
+    nixfmt
   ];
 
   # chromium is global

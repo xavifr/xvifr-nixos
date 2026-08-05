@@ -14,7 +14,7 @@
     outputs.nixosModules.developer-tools
     outputs.nixosModules.winbox
     outputs.nixosModules.aistech
-    outputs.nixosModules.ninjaone
+    outputs.nixosModules.ninjaone-agent
   ];
 
   # Bootloader.
@@ -32,10 +32,10 @@
     "mem_sleep_default=deep"
 
     # Enable IOMMU for better security and performance
-    "amd_iommu=on" 
+    "amd_iommu=on"
 
   ];
-  
+
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
 
@@ -63,15 +63,19 @@
 
   modules.developer-tools.enable = true;
 
-  services.ninjaone-container = {
+  services.ninjaone-agent = {
     enable = true;
-    # Generic installer -- no org token embedded, auto-approved by your
-    # NinjaOne supervisor agent, so no clientUIDFile needed.
-    installerDeb = pkgs.fetchurl {
-      url = "https://eu.ninjarmm.com/ws/api/v2/generic-installer/NinjaOneAgent-x86_64.deb";
-      hash = "sha256-5nudgTaop3tmPZ7eDl1B+Z3ekDSiyhelAz3/A3QTnwE=";
-    };
-    baseUrl = "https://eu.ninjarmm.com";
+    # Signed, org-tied installer link -- deliberately NOT fetched via Nix
+    # (that would bake the identifier into the flake/store) and NOT
+    # committed to git. Download it by hand with the signed link from
+    # NinjaOne and place it at this exact path on as-xvi (root-owned,
+    # outside the repo). Must be an absolute path outside the repo: flakes
+    # only see git-tracked files for paths inside their own source tree,
+    # even gitignored ones, even with --impure -- an external absolute path
+    # is the only way to keep this out of git while still being readable.
+    # No baseUrl/clientUIDFile needed: this installer already has the real
+    # Host/ClientUID baked in by NinjaOne at download time.
+    installerDeb = /home/xavier/code/xvifr-nixos/nokeep/ninjaone-agent.deb;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

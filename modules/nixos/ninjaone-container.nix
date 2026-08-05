@@ -10,29 +10,24 @@
 #   imports = [ ./modules/ninjaone-container.nix ];
 #   services.ninjaone-container = {
 #     enable = true;
-#     installerDeb = pkgs.fetchurl {
-#       url = "https://eu.ninjarmm.com/ws/api/v2/generic-installer/NinjaOneAgent-x86_64.deb";
-#       hash = "sha256-...";
-#     };
-#     baseUrl = "https://eu.ninjarmm.com";
-#     # clientUIDFile = config.age.secrets.ninjaone-client-uid.path; # only if your org requires one
+#     installerDeb = /root/secrets/ninjaone-agent.deb; # see note below
 #   };
 #
 # Notes / caveats:
-# - installerDeb: some NinjaOne instances hand out a truly generic installer
-#   (no org token baked into the URL/binary) and rely on network-level
-#   auto-approval (a discovery/supervisor agent already on your LAN) to
-#   assign new devices to the right org -- in that case just pkgs.fetchurl
-#   the generic-installer link above. Other instances generate an
-#   account-tied installer from the console (Administration -> Apps ->
-#   Installer) that can't be fetched generically -- in that case pass a
-#   local path to that download instead.
-# - clientUIDFile (optional) points at a file containing the raw clientUID
-#   (e.g. an agenix/sops-nix decrypted secret under /run/agenix), only
-#   needed if your NinjaOne instance requires manual registration rather
-#   than auto-approval. It's read at activation time via `cat`, so the
-#   value itself never lands in the world-readable /nix/store -- only the
-#   runtime path does. Leave unset if your org auto-approves new agents.
+# - installerDeb: the account-tied installer you download from your NinjaOne
+#   console (Administration -> Apps -> Installer) already has a working
+#   config/server.conf and config/agent.conf baked in (real ClientUID/Host,
+#   set at download time) -- do NOT regenerate/overwrite those, just seed the
+#   persistent state dir from them once (see ninjaone-server-conf below).
+#   A *generic*, non-account-tied installer instead ships those files with
+#   literal placeholders ("no-token"/"no-host") that must be overridden via
+#   baseUrl/clientUIDFile below.
+# - baseUrl/clientUIDFile/port (all optional, default null/443) only exist to
+#   patch a generic installer's placeholder config. Leave them unset for an
+#   account-tied installer -- setting them would overwrite values NinjaOne
+#   already got right. clientUIDFile is read at activation time via `cat`
+#   (e.g. from an agenix-decrypted secret), so the value itself never lands
+#   in the world-readable /nix/store -- only its runtime path does.
 # - --network=host and --pid=host are set so the agent can see real host
 #   network/process info rather than just the container's. Drop them if you
 #   want tighter isolation and are OK with container-scoped telemetry only.
@@ -64,21 +59,21 @@ let
       gcc-unwrapped.lib
       libGL
       mesa
-      xorg.libX11
-      xorg.libXext
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXinerama
-      xorg.libXrandr
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXfixes
-      xorg.libxcb
-      xorg.libXau
-      xorg.libXdmcp
+      libx11
+      libxext
+      libxrender
+      libxtst
+      libxinerama
+      libxrandr
+      libxcursor
+      libxi
+      libxscrnsaver
+      libxcomposite
+      libxdamage
+      libxfixes
+      libxcb
+      libxau
+      libxdmcp
       libxkbcommon
       util-linux
       openssl
@@ -106,36 +101,53 @@ let
 
   fakeLdconfig = pkgs.writeShellScriptBin "ldconfig" "exit 0";
 
-  agentRuntimePath = lib.makeBinPath (
+  # nixpkgs' procps `top` only accepts `--version`, not the `-v` alias
+  # NinjaOne's agent uses to fingerprint the installed `top` (confirmed:
+  # `top -v` exits 1 with "invalid option -- 'v'" otherwise). Must come
+  # before procps in agentTools so this shadows the real `top` on PATH.
+  topCompat = pkgs.writeShellScriptBin "top" ''
+    if [ "$1" = "-v" ]; then
+      exec ${pkgs.procps}/bin/top --version
+    fi
+    exec ${pkgs.procps}/bin/top "$@"
+  '';
+
+  # Single source of truth for what's on PATH inside the container --
+  # also fed into ninjaOneImage's `contents` below, so nothing ends up
+  # referenced on PATH without its actual binary present in the image.
+  agentTools =
     with pkgs;
     [
       coreutils-full
       bash
-      parted
-      procps
+      parted # parted, partprobe
+      topCompat # must precede procps so its `top` shim wins on PATH
+      procps # pgrep, top (shimmed above), ps, etc.
       dmidecode
       numactl
       readline
       ncurses
-      util-linux
+      util-linux # fdisk, lsblk, mount, etc.
       nettools
-      networkmanager
+      networkmanager # nmcli
+      iproute2 # ip, ss, tc, etc.
       policycoreutils
       file
       python3
       which
       fakeLdconfig
-    ]
-  );
+      cacert
+      gawk # awk -- confirmed needed: agent runs `awk -F: '{ print $1 }' /etc/passwd`
+      lsof # confirmed needed: agent runs `lsof -i -n -P`
+      gnugrep # grep, egrep, fgrep
+    ];
+
+  agentRuntimePath = lib.makeBinPath agentTools;
 
   ninjaOneImage = pkgs.dockerTools.buildLayeredImage {
     name = "ninjaone-agent";
     tag = "latest";
-    contents = [
-      pkgs.bash
-      pkgs.coreutils
-      pkgs.cacert
-    ];
+    contents = agentTools;
 
     extraCommands = ''
       mkdir -p opt
@@ -155,6 +167,12 @@ let
       ];
       Env = [
         "LC_ALL=C"
+        # Without this, ninjarmm-linagent daemonizes itself (forks a
+        # detached child and exits) -- fine for a traditional init system,
+        # fatal in a container, since the exiting process is PID 1. Matches
+        # the Environment= line in the .deb's own bundled
+        # tmp/ninja-startup/ninjarmm-agent.service (Type=simple).
+        "DAEMON_RUN=1"
         "NINJA_AGENT_HOME=/opt/NinjaRMMAgent"
         "PATH=${agentRuntimePath}:/opt/NinjaRMMAgent/programfiles"
         "LD_LIBRARY_PATH=/opt/NinjaRMMAgent/programfiles"
@@ -174,20 +192,22 @@ in
     };
 
     baseUrl = lib.mkOption {
-      type = lib.types.str;
-      example = "https://app.ninjarmm.com";
-      description = "NinjaOne base URL for your instance.";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "agent-eu-central.ninjarmm.com";
+      description = "Override the agent check-in host. Only needed for a generic installer whose bundled server.conf has a placeholder Host; an account-tied installer already has the right value baked in.";
     };
 
     clientUIDFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
-      description = "Path to a file (e.g. an agenix-decrypted secret) containing the NinjaOne clientUID / install token. Leave null if your NinjaOne instance auto-approves new agents (e.g. via a network discovery/supervisor agent) instead of requiring one.";
+      description = "Path to a file (e.g. an agenix-decrypted secret) containing the NinjaOne clientUID. Only needed to patch a generic installer's placeholder ClientUID; an account-tied installer already has the right value baked in.";
     };
 
     port = lib.mkOption {
-      type = lib.types.port;
-      default = 443;
+      type = lib.types.nullOr lib.types.port;
+      default = null;
+      description = "Override the agent check-in port. Only needed to patch a generic installer's placeholder Port.";
     };
 
     stateDir = lib.mkOption {
@@ -214,28 +234,43 @@ in
 
     # Stable machine-id, generated once, persisted, so container recreation
     # doesn't re-derive a new ID and duplicate the device in the console.
+    # mkdir here rather than relying on systemd.tmpfiles.rules above: those
+    # are applied by systemd-tmpfiles-resetup.service, a separate unit that
+    # isn't guaranteed to have run yet during this activation script.
     system.activationScripts.ninjaone-machine-id = ''
+      mkdir -p ${cfg.stateDir}
       if [ ! -f ${cfg.stateDir}/machine-id ]; then
         ${pkgs.coreutils}/bin/cat /proc/sys/kernel/random/uuid \
           | tr -d '-' > ${cfg.stateDir}/machine-id
       fi
     '';
 
-    # Written on every activation, kept out of the container image itself so
-    # the .deb-derived image stays reusable/shareable without your token in it.
-    # clientUIDFile (when set) is read at runtime, not Nix-interpolated, so
-    # the secret value itself never gets embedded into the store-path
-    # activation script -- only its runtime path does.
+    # Seeded ONCE from the installer's own bundled config (which, for an
+    # account-tied installer, already has a real working ClientUID/Host set
+    # by NinjaOne at download time) -- never overwritten afterwards, so the
+    # agent's own runtime updates to these files (e.g. NodeUid after first
+    # check-in) survive rebuilds/restarts. baseUrl/clientUIDFile/port, when
+    # set, patch the seeded file in place (for a generic installer's
+    # placeholder values); clientUIDFile is read at activation time via
+    # `cat`, so the secret value itself never lands in the world-readable
+    # /nix/store -- only its runtime path does.
     system.activationScripts.ninjaone-server-conf = ''
       mkdir -p ${cfg.stateDir}/config
-      cat > ${cfg.stateDir}/config/server.conf <<EOF
-      [General]
-      ${lib.optionalString (cfg.clientUIDFile != null) "ClientUID=$(cat ${cfg.clientUIDFile})"}
-      Host=${cfg.baseUrl}
-      Port=${toString cfg.port}
-      DivisionUID=
-      NodeUid=
-      EOF
+      if [ ! -f ${cfg.stateDir}/config/server.conf ]; then
+        install -m 0600 ${ninjaOneAgent}/NinjaRMMAgent/programfiles/config/server.conf ${cfg.stateDir}/config/server.conf
+      fi
+      if [ ! -f ${cfg.stateDir}/config/agent.conf ]; then
+        install -m 0600 ${ninjaOneAgent}/NinjaRMMAgent/programfiles/config/agent.conf ${cfg.stateDir}/config/agent.conf
+      fi
+      ${lib.optionalString (cfg.baseUrl != null) ''
+        sed -i "s|^Host=.*|Host=${cfg.baseUrl}|" ${cfg.stateDir}/config/server.conf
+      ''}
+      ${lib.optionalString (cfg.port != null) ''
+        sed -i "s|^Port=.*|Port=${toString cfg.port}|" ${cfg.stateDir}/config/server.conf
+      ''}
+      ${lib.optionalString (cfg.clientUIDFile != null) ''
+        sed -i "s|^ClientUID=.*|ClientUID=$(cat ${cfg.clientUIDFile})|" ${cfg.stateDir}/config/server.conf
+      ''}
     '';
 
     virtualisation.oci-containers.backend = "podman";
@@ -250,11 +285,44 @@ in
         "${cfg.stateDir}/config:/opt/NinjaRMMAgent/programfiles/config"
         "${cfg.stateDir}/storage:/opt/NinjaRMMAgent/programdata/storage"
         "${cfg.stateDir}/download:/opt/NinjaRMMAgent/programdata/download"
+        # Real host visibility for inventory/monitoring (disks, hardware,
+        # process list) -- the container's own default /proc, /dev, /sys
+        # are namespaced/restricted and don't show the true host state.
+        "/proc:/proc"
+        # rslave: plain bind only shows /dev's own top-level entries, not
+        # nested mounts like /dev/shm (confirmed missing without this).
+        "/dev:/dev:rslave"
+        "/sys:/sys"
+        # Shared under --network=host anyway; agent expects it to exist.
+        "/etc/hosts:/etc/hosts:ro"
+        # nmcli talks to the host's NetworkManager over D-Bus -- without
+        # this it can print --version but can't list/control connections.
+        "/run/dbus:/run/dbus"
       ];
 
       extraOptions = [
         "--cap-add=NET_RAW"
         "--cap-add=NET_ADMIN"
+        # Bind privileged (<1024) ports and send to broadcast/multicast
+        # addresses -- rounds out NET_RAW/NET_ADMIN for full network
+        # visibility/control parity with a native install.
+        "--cap-add=NET_BIND_SERVICE"
+        "--cap-add=NET_BROADCAST"
+        # Needed to read /dev/mem for SMBIOS/BIOS data (confirmed: EPERM
+        # without it, even with the device node visible via the /dev mount)
+        # and for device-mapper ioctls (confirmed: `parted` failed on
+        # /dev/mapper/control without SYS_ADMIN).
+        "--cap-add=SYS_RAWIO"
+        "--cap-add=SYS_ADMIN"
+        # The /dev bind mount above makes device nodes *visible*, but
+        # Podman's device cgroup allow-list separately blocks actually
+        # opening most of them (confirmed: fdisk/parted silently found zero
+        # disks, no error, despite /dev/nvme0n1 etc. being right there).
+        # Rather than chase one --device=/dev/X entry per disk/device type,
+        # allow the whole block+char device classes -- consistent with the
+        # capabilities above already granting near-host-equivalent trust.
+        "--device-cgroup-rule=b *:* rwm"
+        "--device-cgroup-rule=c *:* rwm"
       ]
       ++ lib.optionals cfg.hostNetworking [
         "--network=host"

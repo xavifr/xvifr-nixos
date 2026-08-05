@@ -9,4 +9,5 @@
   winbox = import ./winbox.nix;
   aistech = import ./aistech.nix;
   ninjaone = import ./ninjaone-container.nix;
+  ninjaone-agent = import ./ninjaone-systemd.nix;
 }

@@ -83,6 +83,7 @@
         "docker"
         "samba"
         "dialout"
+        "podman"
       ];
     };
   };

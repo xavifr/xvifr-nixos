@@ -75,7 +75,7 @@
     kdePackages.kdenetwork-filesharing
 
     # helper to kill processes
-    xorg.xkill
+    xkill
   ];
 
   programs.kdeconnect.enable = true;
