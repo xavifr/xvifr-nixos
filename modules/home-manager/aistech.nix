@@ -35,6 +35,13 @@
     package = inputs.sadjow-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
+  xdg.configFile."Code/User/argv.json".text = builtins.toJSON {
+    "disable-hardware-acceleration" = true;
+    "disable-gpu" = true;
+    "disable-gpu-compositing" = true;
+    "use-gl" = "disabled";
+  };
+
   programs.vscode = {
     enable = true; # Temporarily disabled due to incompatibility
     package = pkgs.vscode;
