@@ -12,6 +12,8 @@
   };
 
   config = lib.mkIf config.modules.developer-tools.enable {
+
+
     environment.systemPackages = with pkgs; [
       #anycubic-slicer
       vscode
@@ -30,7 +32,9 @@
       k9s
       k3d
       kubectl
-      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+      (google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ])
 
       dbeaver-bin
       mysql-workbench

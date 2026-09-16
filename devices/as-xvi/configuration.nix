@@ -22,13 +22,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
+
   boot.kernelParams = [
     # This is the correct parameter name for modern AMD drivers
     "amdgpu.gpu_recovery=1"
-    "amdgpu.dcdebugmask=0x10"
+    #"amdgpu.dcdebugmask=0x10"
     # Try this alternative specific to the Display Core (DC)
-    "amdgpu.dc_feature_mask=0x2"
+    #"amdgpu.dc_feature_mask=0x2"
     "mem_sleep_default=deep"
 
     # Enable IOMMU for better security and performance

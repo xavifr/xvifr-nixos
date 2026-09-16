@@ -8,6 +8,10 @@
   home.packages = with pkgs; [
     telegram-desktop
     gemini-cli
+    (pkgs.python3.withPackages (ps: [
+      ps.keyring
+      ps.keyrings-google-artifactregistry-auth
+    ]))
   ];
 
   programs.ruff = {
@@ -16,7 +20,18 @@
     };
   };
 
-  programs.uv.enable = true;
+  programs.uv = {
+    enable = true;
+    settings = {
+      keyring-provider = "subprocess";
+      index = [
+        {
+          name = "as-python";
+          url = "https://oauth2accesstoken@europe-west1-python.pkg.dev/as-infra-484911/as-python/simple/";
+        }
+      ];
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -36,14 +51,12 @@
   };
 
   xdg.configFile."Code/User/argv.json".text = builtins.toJSON {
-    "disable-hardware-acceleration" = true;
     "disable-gpu" = true;
-    "disable-gpu-compositing" = true;
-    "use-gl" = "disabled";
+    "ozone-platform" = "x11";
   };
 
   programs.vscode = {
-    enable = true; # Temporarily disabled due to incompatibility
+    enable = true;
     package = pkgs.vscode;
     profiles.default = {
       userSettings = {
@@ -87,6 +100,8 @@
         };
         "git.confirmSync" = false;
         "git.replaceTagsWhenPull" = true;
+        "explorer.confirmDragAndDrop" = false;
+
       };
 
       extensions =
