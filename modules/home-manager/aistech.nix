@@ -102,6 +102,18 @@
         "git.replaceTagsWhenPull" = true;
         "explorer.confirmDragAndDrop" = false;
 
+        # Run dmypy with each workspace folder's own venv interpreter instead of the
+        # dmypy found on PATH (the system-wide python3.13-mypy), which cannot import
+        # project mypy plugins such as pydantic.mypy.
+        "mypy.runUsingActiveInterpreter" = true;
+        "yaml.disableSchemaDetection" = [
+          "**/.github/workflows/*.yml"
+          "**/.github/workflows/*.yaml"
+          "**/.gitea/workflows/*.yml"
+          "**/.gitea/workflows/*.yaml"
+          "**/.forgejo/workflows/*.yml"
+          "**/.forgejo/workflows/*.yaml"
+        ];
       };
 
       extensions =
