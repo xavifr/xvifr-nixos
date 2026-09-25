@@ -105,7 +105,9 @@
         # Run dmypy with each workspace folder's own venv interpreter instead of the
         # dmypy found on PATH (the system-wide python3.13-mypy), which cannot import
         # project mypy plugins such as pydantic.mypy.
-        "mypy.runUsingActiveInterpreter" = true;
+        "mypy.runUsingActiveInterpreter" = false;
+        "mypy.dmypyExecutable" = "\${workspaceFolder}/.venv/bin/dmypy";
+
         "yaml.disableSchemaDetection" = [
           "**/.github/workflows/*.yml"
           "**/.github/workflows/*.yaml"
