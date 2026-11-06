@@ -85,6 +85,13 @@
           ];
         };
 
+        AISCL032 = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./devices/as-xvi/configuration.nix
+          ];
+        };
+
       };
 
       # Standalone home-manager configuration entrypoint

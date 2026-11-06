@@ -28,6 +28,7 @@
         {
           name = "as-python";
           url = "https://oauth2accesstoken@europe-west1-python.pkg.dev/as-infra-484911/as-python/simple/";
+          publish-url = "https://oauth2accesstoken@europe-west1-python.pkg.dev/as-infra-484911/as-python/";
         }
       ];
     };
@@ -53,6 +54,31 @@
   xdg.configFile."Code/User/argv.json".text = builtins.toJSON {
     "disable-gpu" = true;
     "ozone-platform" = "x11";
+  };
+
+  # The matangover.mypy extension spawns one detached dmypy daemon per workspace
+  # and never reaps them across VS Code restarts (89 leaked daemons once ate ~27GB
+  # of swap). Kill daemons older than 12h; the extension respawns them on demand.
+  systemd.user.services.dmypy-reaper = {
+    Unit.Description = "Kill stale leaked dmypy daemons";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.writeShellScript "dmypy-reaper" ''
+        for pid in $(${pkgs.procps}/bin/pgrep -f 'bin/dmypy'); do
+          age=$(${pkgs.procps}/bin/ps -o etimes= -p "$pid" | tr -d ' ')
+          [ -n "$age" ] && [ "$age" -gt 3600 ] && kill "$pid"
+        done
+        exit 0
+      ''}";
+    };
+  };
+  systemd.user.timers.dmypy-reaper = {
+    Unit.Description = "Periodically kill stale dmypy daemons";
+    Timer = {
+      OnBootSec = "15min";
+      OnUnitActiveSec = "1h";
+    };
+    Install.WantedBy = [ "timers.target" ];
   };
 
   programs.vscode = {
@@ -158,8 +184,8 @@
         user = "git";
         port = 22;
       };
-      "bitbucket.org" = {
-        hostname = "github.com";
+      "ssh.bitbucket.org" = {
+        #hostname = "github.com";
         identityFile = secrets.secret_as-xvi_ssh_key.path;
         user = "git";
         port = 22;

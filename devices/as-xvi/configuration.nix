@@ -44,6 +44,7 @@
   boot.initrd.luks.devices."luks-48d13175-9b4b-41cf-b7b3-0268ae7e13c8".device =
     "/dev/disk/by-uuid/48d13175-9b4b-41cf-b7b3-0268ae7e13c8";
 
+  #networking.hostName = "AISCL032";
   networking.hostName = "as-xvi";
 
   networking.networkmanager.enable = true;
@@ -66,7 +67,7 @@
   modules.developer-tools.enable = true;
 
   services.ninjaone-agent = {
-    enable = true;
+    enable = false;
     # Signed, org-tied installer link -- deliberately NOT fetched via Nix
     # (that would bake the identifier into the flake/store) and NOT
     # committed to git. Download it by hand with the signed link from

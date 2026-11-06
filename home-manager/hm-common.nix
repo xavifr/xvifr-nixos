@@ -111,10 +111,11 @@
       background-blur = 40;
       shell-integration = "fish";
       command = "fish";
-      #bell-features = "system"; # enable in 1.1.4
+      bell-features = "system";
       keybind = [
         "ctrl+backspace=text:\\x15"
       ];
+      copy-on-select = true;
     };
   };
 

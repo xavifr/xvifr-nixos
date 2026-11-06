@@ -6,7 +6,8 @@
 {
   home.packages = with pkgs; [
     telegram-desktop
-    wasistlos
+    #wasistlos
+    #karere
   ];
 
   programs.git = {
@@ -21,7 +22,7 @@
 
   programs.vscode = {
     enable = true;
-    package = pkgs.code-cursor;
+    package = pkgs.vscode;
     profiles.default = {
       userSettings = {
         "editor.cursorBlinking" = "smooth";
