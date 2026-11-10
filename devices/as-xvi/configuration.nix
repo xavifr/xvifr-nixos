@@ -36,6 +36,10 @@
     # Enable IOMMU for better security and performance
     "amd_iommu=on"
 
+    # OLLAMA Tweaks
+    "amdgpu.gttsize=24576"
+    "ttm.pages_limit=6291456"
+    "amdttm.pages_limit=6291456"
   ];
 
   hardware.enableRedistributableFirmware = true;

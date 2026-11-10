@@ -20,4 +20,8 @@
     user = "xavier";
   };
 
+  services.ollama = {
+    enable = true;
+    loadModels = ["qwen2.5-Coder:7b-base" "qwen2.5-Coder:1.5b-base"];
+  };
 }

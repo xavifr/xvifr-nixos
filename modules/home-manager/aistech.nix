@@ -32,6 +32,15 @@
         }
       ];
     };
+
+    # TODO: Enable on nixos 26.11
+    #    tool.packages = [
+    #      "ty"
+    #      "ruff"
+    #      "pre-commit"
+    #      "pytest"
+    #      "mypy"
+    #    ];
   };
 
   programs.git = {
@@ -79,6 +88,55 @@
       OnUnitActiveSec = "1h";
     };
     Install.WantedBy = [ "timers.target" ];
+  };
+
+  programs.zed-editor = {
+    enable = true;
+
+    userKeymaps = [
+      {
+        context = "Editor && edit_prediction";
+        bindings = {
+          tab = "editor::AcceptEditPrediction";
+        };
+      }
+    ];
+
+    userSettings = {
+      load_direnv = "direct";
+      autosave.after_delay.milliseconds = 1000;
+
+      languages = {
+        Python.language_servers = [
+          "ty"
+          "!basedpyright"
+          "..."
+        ];
+        Go.language_servers = [
+          "gopls"
+          "golangci-lint"
+        ];
+      };
+
+      edit_predictions = {
+        provider = "ollama";
+        ollama = {
+          prompt_format = "qwen";
+          prediction_debounce = 300;
+          max_output_tokens = 128;
+          model = "qwen2.5-Coder:1.5b-base";
+        };
+      };
+
+      agent_servers.claude-acp = {
+        favorite_config_option_values.model = [ "sonnet" ];
+        default_config_options = {
+          model = "sonnet";
+          mode = "plan";
+        };
+        type = "registry";
+      };
+    };
   };
 
   programs.vscode = {
