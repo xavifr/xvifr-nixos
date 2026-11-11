@@ -30,6 +30,17 @@
         }
       );
 
+      # nixpkgs vscode 1.144.0: upstream moved ripgrep to @vscode/ripgrep-universal
+      # (rm: cannot remove 'resources/app/node_modules/@vscode/ripgrep/bin/rg')
+      # Remove once nixpkgs fixes this.
+      vscode = prev.vscode.overrideAttrs (old: {
+        postPatch =
+          builtins.replaceStrings
+            [ "resources/app/node_modules/@vscode/ripgrep/bin/rg" ]
+            [ "resources/app/node_modules/@vscode/ripgrep-universal/bin/linux-x64/rg" ]
+            old.postPatch;
+      });
+
       # gemini-cli overlay disabled; using custom package in pkgs instead
       # gemini-cli = prev.gemini-cli.overrideAttrs (
       #   import ./gemini-cli.nix {

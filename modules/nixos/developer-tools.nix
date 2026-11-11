@@ -16,7 +16,7 @@
 
     environment.systemPackages = with pkgs; [
       #anycubic-slicer
-      vscode
+      #vscode
       slack
       buf
       openbao

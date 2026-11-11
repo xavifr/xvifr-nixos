@@ -104,12 +104,14 @@
 
     userSettings = {
       load_direnv = "direct";
+
+      format_on_save = "on";
       autosave.after_delay.milliseconds = 1000;
 
       languages = {
         Python.language_servers = [
-          "ty"
-          "!basedpyright"
+          # "ty"
+          # "!basedpyright"
           "..."
         ];
         Go.language_servers = [
@@ -127,6 +129,14 @@
           model = "qwen2.5-Coder:1.5b-base";
         };
       };
+
+      agent = {
+        dock = "right";
+        favorite_models = [ ];
+        model_parameters = [ ];
+      };
+
+      project_panel.dock = "left";
 
       agent_servers.claude-acp = {
         favorite_config_option_values.model = [ "sonnet" ];
@@ -216,7 +226,6 @@
           ms-python.python
           github.vscode-github-actions
           anthropic.claude-code
-          #google.gemini-cli-vscode-ide-companion
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {

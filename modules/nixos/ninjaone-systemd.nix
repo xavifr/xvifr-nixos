@@ -190,7 +190,11 @@ in
     # agent's own runtime updates to server.conf survive rebuilds.
     system.activationScripts.ninjaone-agent-install = ''
       mkdir -p ${installDir}/programfiles
-      ${pkgs.rsync}/bin/rsync -a --delete --exclude=config \
+      # --checksum: store files all have mtime 1970, and an autoPatchelf'd
+      # binary keeps the same size when only the glibc hash changes, so the
+      # default size+mtime quick check would skip stale binaries after a
+      # glibc bump (-> status=203/EXEC, missing ELF interpreter).
+      ${pkgs.rsync}/bin/rsync -a --checksum --delete --exclude=config \
         ${ninjaOneAgent}/NinjaRMMAgent/programfiles/ ${installDir}/programfiles/
       chmod -R u+w ${installDir}/programfiles
 

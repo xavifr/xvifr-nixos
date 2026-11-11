@@ -13,7 +13,7 @@
 
   services.icecream.daemon = {
     enable = true;
-    hostname = "as-xvi";
+    hostname = "AISCL032";
     maxProcesses = 2;
     openBroadcast = true;
     openFirewall = true;
